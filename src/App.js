@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import './App.css';
 import {Navbar,NavbarBrand} from 'reactstrap';
 import {STAFFS} from './shared/staffs';
-/* import StaffList from './components/StaffListComponent'; */
+import StaffList from './components/StaffListComponent';
 
 class App extends Component {
   constructor(props){
@@ -20,7 +20,7 @@ class App extends Component {
              </NavbarBrand>
           </div>             
         </Navbar>
-       {/*  <StaffList staffs={this.state.staffs}/> */}
+        <StaffList staffs={this.state.staffs}/>
       </div>
     );
 
