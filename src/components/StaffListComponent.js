@@ -9,10 +9,10 @@ class StaffList extends Component{
         this.state={onSelectStaff:null, columDefault:"col-12 col-md-6 col-lg-4 mt-1"};
     }
     onStaff(staff){
-        this.setState={onSelectStaff:staff};
+        this.setState({onSelectStaff:staff});
     }
     columSelect(colum){
-        this.setState={columDefault:colum}
+        this.setState({columDefault:colum});
     }
     
 
@@ -36,15 +36,14 @@ class StaffList extends Component{
                     <button className='btn btn-success mr-3' onClick={()=>this.columSelect("col-12 col-md-4 mt-1")}>3 cột</button>
                     <button className='btn btn-success mr-3' onClick={()=>this.columSelect("col-12 col-md-6 mt-1")}>2 cột</button>
                     <button className='btn btn-success mr-3' onClick={()=>this.columSelect("col-12 col-md-12 mt-1")}>1 cột</button>
-
-
                 </div>
                 <div class="row">
                     {stafflist}
                 </div>
                 <div className='row'>
                     <StaffDetail detail={this.state.onSelectStaff}/>
-                </div>
+                </div>              
+                    
 
             </div>
         );
