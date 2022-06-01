@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { Card, CardBody, CardTitle } from 'reactstrap';
+import StaffDetail from './StaffDetailComponent';
 
 
 class StaffList extends Component{
@@ -12,11 +14,29 @@ class StaffList extends Component{
     columSelect(colum){
         this.setState={columDefault:colum}
     }
+    
 
     render(){
+        const stafflist=this.props.staffs.map((staff)=>{
+            return(
+                <div className={this.state.columDefault}>
+                    <Card>
+                        <CardBody>
+                             <CardTitle>{staff.name}</CardTitle>
+                        </CardBody>
+                    </Card>
+                </div>                
+            );
+        });
         return(
-            <div>
-                
+            <div class="container">
+                <div class="row">
+                    {stafflist}
+                </div>
+                <div className='row'>
+                    <StaffDetail detail={this.state.onSelectStaff}/>
+                </div>
+
             </div>
         );
     }
