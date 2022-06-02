@@ -5,6 +5,7 @@ import {Navbar,NavbarBrand} from 'reactstrap';
 import {STAFFS} from './shared/staffs';
 import StaffList from './components/StaffListComponent';
 
+/* hàm render ra toàn bộ ứng dụng này */
 class App extends Component {
   constructor(props){
     super(props);

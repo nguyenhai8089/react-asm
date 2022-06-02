@@ -20,7 +20,7 @@ class StaffList extends Component{
     renderStaff(){
         if(this.state.onSelectStaff!=null){
             return(
-                <div className='col-6'>
+                <div className='col-12'>
                     <StaffDetail staff={this.state.onSelectStaff}/>                   
                     {console.log(this.state.onSelectStaff)}
                 </div>

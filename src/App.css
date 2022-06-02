@@ -50,5 +50,27 @@
   width:auto;
   display: flex;
   justify-content: center;
+  
 
+}
+.left{
+  
+   width: 30%;
+    height: auto;   
+    float:left;
+    margin:auto;
+    
+
+}
+.right{
+  
+   width: 70%;
+    height: auto;  
+    float:right;
+    margin:auto;
+    font-size: 15px;
+
+}
+* {
+  box-sizing: border-box;
 }
