@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardBody, CardTitle} from 'reactstrap';
 import StaffDetail from './StaffDetailComponent';
-
 
 class StaffList extends Component{
     constructor(props){
@@ -14,13 +13,29 @@ class StaffList extends Component{
     columSelect(colum){
         this.setState({columDefault:colum});
     }
+    renderStaff(){
+        if(this.state.onSelectStaff!=null){
+            return(
+                <div className='col-12'>
+                    <StaffDetail staff={this.state.onSelectStaff}/>                   
+                    {console.log(this.state.onSelectStaff)}
+                </div>
+            );
+        }
+        else{
+            return(
+                <div></div>
+            );
+        }
+
+    }
     
 
     render(){
         const stafflist=this.props.staffs.map((staff)=>{
             return(
                 <div className={this.state.columDefault}>
-                    <Card>
+                    <Card key={staff.id} onClick={()=>this.onStaff(staff)}>
                         <CardBody>
                              <CardTitle>{staff.name}</CardTitle>
                         </CardBody>
@@ -40,8 +55,8 @@ class StaffList extends Component{
                 <div class="row">
                     {stafflist}
                 </div>
-                <div className='row'>
-                    <StaffDetail detail={this.state.onSelectStaff}/>
+                <div className='row' >
+                    {this.renderStaff()}
                 </div>              
                     
 
