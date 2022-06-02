@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+.BTN{ 
+  min-height: 100px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.DETAIL{
+  margin-top: 100px;
+  width:auto;
+  display: flex;
+  justify-content: center;
+
+}

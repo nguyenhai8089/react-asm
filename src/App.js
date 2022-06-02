@@ -20,7 +20,14 @@ class App extends Component {
              </NavbarBrand>
           </div>             
         </Navbar>
-        <StaffList staffs={this.state.staffs}/>
+        <div className='card'>
+          <div className='card-body'>
+            <StaffList staffs={this.state.staffs}/>
+
+          </div>
+
+        </div>
+        
       </div>
     );
 

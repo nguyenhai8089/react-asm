@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import { Card, CardBody, CardTitle} from 'reactstrap';
+import { Card, CardBody, CardImg, CardTitle} from 'reactstrap';
 import StaffDetail from './StaffDetailComponent';
 
 class StaffList extends Component{
     constructor(props){
         super(props);
-        this.state={onSelectStaff:null, columDefault:"col-12 col-md-6 col-lg-4 mt-1"};
+        this.state={onSelectStaff:null, columDefault:"col-12 col-md-6 col-lg-4 mt-3"};
     }
     onStaff(staff){
         this.setState({onSelectStaff:staff});
@@ -16,7 +16,7 @@ class StaffList extends Component{
     renderStaff(){
         if(this.state.onSelectStaff!=null){
             return(
-                <div className='col-12'>
+                <div className='col-6'>
                     <StaffDetail staff={this.state.onSelectStaff}/>                   
                     {console.log(this.state.onSelectStaff)}
                 </div>
@@ -27,7 +27,6 @@ class StaffList extends Component{
                 <div></div>
             );
         }
-
     }
     
 
@@ -36,6 +35,7 @@ class StaffList extends Component{
             return(
                 <div className={this.state.columDefault}>
                     <Card key={staff.id} onClick={()=>this.onStaff(staff)}>
+                        <CardImg src="/assets/images/AvatarLargeNam.png" width="2%"/>
                         <CardBody>
                              <CardTitle>{staff.name}</CardTitle>
                         </CardBody>
@@ -45,17 +45,17 @@ class StaffList extends Component{
         });
         return(
             <div class="container">
-                <div className='row'>
-                    <button className='btn btn-success mr-3' onClick={()=>this.columSelect("col-12 col-md-2 mt-1")}>6 cột</button>
-                    <button className='btn btn-success mr-3' onClick={()=>this.columSelect("col-12 col-md-3 mt-1")}>4 cột</button>
-                    <button className='btn btn-success mr-3' onClick={()=>this.columSelect("col-12 col-md-4 mt-1")}>3 cột</button>
-                    <button className='btn btn-success mr-3' onClick={()=>this.columSelect("col-12 col-md-6 mt-1")}>2 cột</button>
-                    <button className='btn btn-success mr-3' onClick={()=>this.columSelect("col-12 col-md-12 mt-1")}>1 cột</button>
+                <div className='row BTN'>
+                    <button className='btn btn-success m-3' onClick={()=>this.columSelect("col-12 col-md-2 mt-3")}>6 cột</button>
+                    <button className='btn btn-success m-3' onClick={()=>this.columSelect("col-12 col-md-3 mt-3")}>4 cột</button>
+                    <button className='btn btn-success m-3' onClick={()=>this.columSelect("col-12 col-md-4 mt-3")}>3 cột</button>
+                    <button className='btn btn-success m-3' onClick={()=>this.columSelect("col-12 col-md-6 mt-3")}>2 cột</button>
+                    <button className='btn btn-success m-3' onClick={()=>this.columSelect("col-12 col-md-12 mt-3")}>1 cột</button>
                 </div>
                 <div class="row">
                     {stafflist}
                 </div>
-                <div className='row' >
+                <div className='row DETAIL' >
                     {this.renderStaff()}
                 </div>              
                     
