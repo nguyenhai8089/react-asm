@@ -2,17 +2,21 @@ import React, {Component} from 'react';
 import { Card, CardBody, CardImg, CardTitle} from 'reactstrap';
 import StaffDetail from './StaffDetailComponent';
 
+/* hàm StaffList render ra phần body trang */
 class StaffList extends Component{
     constructor(props){
         super(props);
         this.state={onSelectStaff:null, columDefault:"col-12 col-md-6 col-lg-4 mt-3"};
     }
+    /* hàm gán giá trị state mới khi click vào đối tượng */
     onStaff(staff){
         this.setState({onSelectStaff:staff});
     }
+    /* hàm gán giá trị state mới khi nhấn button trên giao diện */
     columSelect(colum){
         this.setState({columDefault:colum});
     }
+    /* hàm render truyền thông tin cho hàm StaffDetail render ra chi tiết dữ liệu thông tin nhân viên */
     renderStaff(){
         if(this.state.onSelectStaff!=null){
             return(
@@ -29,13 +33,13 @@ class StaffList extends Component{
         }
     }
     
-
+/* hàm render hiển thị ra danh sách các nhân viên, và các nút button */
     render(){
         const stafflist=this.props.staffs.map((staff)=>{
             return(
                 <div className={this.state.columDefault}>
                     <Card key={staff.id} onClick={()=>this.onStaff(staff)}>
-                        <CardImg src="/assets/images/AvatarLargeNam.png" width="2%"/>
+                        <CardImg src="/assets/images/AvatarLargeNam.png"/>
                         <CardBody>
                              <CardTitle>{staff.name}</CardTitle>
                         </CardBody>
