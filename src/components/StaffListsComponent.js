@@ -1,12 +1,12 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
+import { Card, CardBody, CardImg, CardTitle} from 'reactstrap';
 import StaffDetail from './StaffDetailComponent';
-import {Card,CardImg,CardBody,CardTitle}from 'reactstrap';
 
 /* hàm StaffList render ra phần body trang */
 class StaffList extends Component{
     constructor(props){
         super(props);
-        this.state={onSelectStaff:null, columDefault:"col-12 col-md-2 mt-3"};
+        this.state={onSelectStaff:null, columDefault:"col-12 col-md-6 col-lg-4 mt-3"};
     }
     /* hàm gán giá trị state mới khi click vào đối tượng */
     onStaff(staff){
