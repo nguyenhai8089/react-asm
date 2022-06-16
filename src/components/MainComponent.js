@@ -7,7 +7,7 @@ import Department from './DepartmentComponent';
 import Payroll from './PayrollComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
-import {STAFFS} from '../shared/staffs';
+import {DEPARTMENTS, STAFFS} from '../shared/staffs';
 import StaffDetail from './StaffDetailComponent';
 
 
@@ -15,7 +15,7 @@ import StaffDetail from './StaffDetailComponent';
 class Main extends Component {
   constructor(props){
     super(props);
-    this.state={staffs:STAFFS};
+    this.state={staffs:STAFFS, department:DEPARTMENTS};
   }  
   
   render(){
@@ -34,7 +34,7 @@ class Main extends Component {
         <Switch>
              <Route exact path='/staff' component={()=><StaffList staff={this.state.staffs}/>}/>
              <Route exact path='/staff/:id' component={StaffId}/>  
-             <Route exact path='/department' component={()=><Department staff={this.state.staffs}/>}/>
+             <Route exact path='/department' component={()=><Department department={this.state.department}/>}/>
              <Route exact path='/payroll' component={()=><Payroll staff={this.state.staffs}/>}/>
              <Redirect to='/staff'/>          
         </Switch>  
