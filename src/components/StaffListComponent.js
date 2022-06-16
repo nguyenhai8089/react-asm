@@ -2,61 +2,38 @@
 import React/* ,{Component} */ from 'react';
 /* import StaffDetail from './StaffDetailComponent'; */
 import {Card,CardImg,CardBody,CardTitle}from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 /* hàm StaffList render ra phần body trang */
 function StaffList(props){
-    /* constructor(props){
-        super(props);
-        this.state={onSelectStaff:null, columDefault:"col-12 col-md-2 mt-3"};
-    } */
-    /* hàm gán giá trị state mới khi click vào đối tượng */
-    /* onStaff(staff){
-        this.setState({onSelectStaff:staff});
-    } */
-      
-    /* hàm render truyền thông tin cho hàm StaffDetail render ra chi tiết dữ liệu thông tin nhân viên */
-  /*   renderStaff(){
-       
-        if(this.state.onSelectStaff!=null){
-            return(
-                <div className='col-12'>
-                    <StaffDetail staff={this.state.onSelectStaff}/>                   
-                    {console.log(this.state.onSelectStaff)}
-                </div>
-            );
-        }
-        else{
-            return(
-                <div></div>
-            );
-        }
-    }
-     */
+    
 /* hàm render hiển thị ra danh sách các nhân viên */
    
      console.log(props.staff);
         const stafflist=props.staff.map((staff)=>{
             return(
-                <div /* className="col-12 col-md-2 mt-3" */>
-                    <Card key={staff.id} /* onClick={()=>this.onStaff(staff)} */>
-                        <CardImg src={staff.image} alt={staff.name}/>
-                        <CardBody>
-                             <CardTitle>{staff.name}</CardTitle>
-                        </CardBody>
+                <div className="col-6 col-md-4 col-lg-2 mt-3">
+                    <Card key={staff.id} >
+                        <Link to ={`/staff/${staff.id}`}>
+                            <CardImg src={staff.image} alt={staff.name}/>
+                            <CardBody>
+                                 <CardTitle>{staff.name}</CardTitle>
+                             </CardBody>
+                        </Link>
+                        
                     </Card>
                 </div>                
             );
         });
         return(
-            <div class="container">               
+            <div class="container">  
+                <div className='row col-12'>
+                    <h2>nhân viên</h2>
+                    <hr/>                    
+                </div>             
                 <div class="row">
                     {stafflist}
-                </div>
-                {/* <div className='row DETAIL' >
-                    {this.renderStaff()}
-                </div> */}              
-                    
-
+                </div>                      
             </div>
         );
     }

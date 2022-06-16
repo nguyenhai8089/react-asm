@@ -8,6 +8,7 @@ import Payroll from './PayrollComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import {STAFFS} from '../shared/staffs';
+import StaffDetail from './StaffDetailComponent';
 
 
 /* hàm render ra toàn bộ ứng dụng này */
@@ -18,17 +19,23 @@ class Main extends Component {
   }  
   
   render(){
-   /*  const HomPage=(props) =>{
-      return(
-          <StaffList staff={this.state.staffs}/>
-          );} */
+    const StaffId = ({ match }) => {
+      return (
+        <StaffDetail
+          staff={this.state.staffs.filter(
+            (staff) => staff.id === parseInt(match.params.id,10)
+          )[0]}
+        />
+      );
+    };
     return (
       <div >
         <Header/>
         <Switch>
-             <Route path='/staff' component={()=><StaffList staff={this.state.staffs}/>}/> 
-             <Route path='/department' component={()=><Department staff={this.state.staffs}/>}/>
-             <Route path='/payroll' component={()=><Payroll staff={this.state.staffs}/>}/>
+             <Route exact path='/staff' component={()=><StaffList staff={this.state.staffs}/>}/>
+             <Route exact path='/staff/:id' component={StaffId}/>  
+             <Route exact path='/department' component={()=><Department staff={this.state.staffs}/>}/>
+             <Route exact path='/payroll' component={()=><Payroll staff={this.state.staffs}/>}/>
              <Redirect to='/staff'/>          
         </Switch>  
         <Footer/> 

@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Card,CardBody,CardImg,CardText,CardTitle} from 'reactstrap'
 import dateFormat from 'dateformat';
 
 /* hàm render trả chi tiết thồng tin của nhân viên */
-class StaffDetail extends Component{    
-    render(){
-        const staff1=this.props.staffs    
-        console.log(this.props.staffs);     
+function StaffDetail(props){    
+    
+        const staff1=props.staff    
+        console.log(props.staff);  
+        if(staff1 !=null)   
             return(
                 <Card className='mb-5 bg-info text-white'>
                     <div className="container row"key={staff1.id}>
@@ -26,8 +27,12 @@ class StaffDetail extends Component{
                         </div>                        
                     </div>                         
                 </Card>
-            );    
+            ); 
+        else {
+            return(<div></div>);
+            
+        }   
     }
     
-}
+
 export default StaffDetail;
