@@ -22,6 +22,7 @@
                                   <CardTitle>Mã nhân viên: {staff.id}</CardTitle>
                                   <CardTitle>Hệ số lương: {staff.salaryScale}</CardTitle>
                                   <CardTitle>Số ngày làm thêm: {staff.overTime}</CardTitle>
+                                  <CardTitle>Lương: {staff.salaryScale*30000000 + staff.overTime*200000}</CardTitle>
                               </CardBody>
                         
                      </Card>
