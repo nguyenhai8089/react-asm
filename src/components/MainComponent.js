@@ -18,15 +18,18 @@ class Main extends Component {
   }  
   
   render(){
-    const HomPage=(props) =><StaffList staff={this.state.staffs.map()}/>
+   /*  const HomPage=(props) =>{
+      return(
+          <StaffList staff={this.state.staffs}/>
+          );} */
     return (
       <div >
         <Header/>
         <Switch>
-             <Route path='./staff' component={HomPage}/> 
-             <Route path='./Department' component={()=><Department staff={this.state.staffs}/>}/>
-             <Route path='./Payroll' component={()=><Payroll staff={this.state.staffs}/>}/>
-             <Redirect to='./staff'/>          
+             <Route path='/staff' component={()=><StaffList staff={this.state.staffs}/>}/> 
+             <Route path='/department' component={()=><Department staff={this.state.staffs}/>}/>
+             <Route path='/payroll' component={()=><Payroll staff={this.state.staffs}/>}/>
+             <Redirect to='/staff'/>          
         </Switch>  
         <Footer/> 
       </div>

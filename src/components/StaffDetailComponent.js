@@ -5,7 +5,8 @@ import dateFormat from 'dateformat';
 /* hàm render trả chi tiết thồng tin của nhân viên */
 class StaffDetail extends Component{    
     render(){
-        const staff1=this.props.staff         
+        const staff1=this.props.staffs    
+        console.log(this.props.staffs);     
             return(
                 <Card className='mb-5 bg-info text-white'>
                     <div className="container row"key={staff1.id}>
