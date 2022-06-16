@@ -27,7 +27,7 @@ class Header extends Component{
                                   <NavLink className="nav-link" to="/department"><span className='fa fa-id-card fa-lg'></span> Phòng ban</NavLink>
                               </NavItem>
                               <NavItem>
-                                  <NavLink className="nav-link" to="/payroll"><span className='fa fa-money fa-lg'></span> Bảng lương</NavLink>
+                                  <NavLink className="nav-link" to="/salary"><span className='fa fa-money fa-lg'></span> Bảng lương</NavLink>
                               </NavItem>                              
                           </Nav>
                       </Collapse>
