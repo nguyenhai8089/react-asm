@@ -4,7 +4,6 @@ import {Card,CardImg,CardBody,CardTitle}from 'reactstrap';
 import {Link} from 'react-router-dom';
 
 
-
 /* hàm Render ra ảnh và tên nhân viên */
 function RenderStaffList({staff}){
     return(
@@ -15,8 +14,7 @@ function RenderStaffList({staff}){
                     <CardBody>
                         <CardTitle>{staff.name}</CardTitle>
                     </CardBody>
-                </Link>
-                        
+                </Link>                        
             </Card>
         </div>
     );
@@ -41,7 +39,8 @@ function StaffList(props){
                 </div>             
                 <div class="row">
                     {stafflist}
-                </div>                      
+                </div> 
+                <hr/>                     
             </div>
         );
     }

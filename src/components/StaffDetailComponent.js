@@ -46,6 +46,7 @@ function StaffDetail(props){
                              <RenderStaffDetail staff1={staff1}/>                                               
                          </div>                         
                     </Card>
+                    <hr/>
                 </div>                
             ); 
         else {
