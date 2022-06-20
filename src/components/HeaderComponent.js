@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem} from 'reactstrap';
-
 import { NavLink } from 'react-router-dom';
 
+/* hàm render ra các Header của các trang web */
 class Header extends Component{
     constructor(props){
         super(props);

@@ -33,8 +33,8 @@ function StaffList(props){
         });
         return(
             <div class="container">  
-                <div className='col-12'>
-                    <h2>Nhân viên</h2>
+                <div className='col-12 p-3'>
+                    <h2 className=''>Nhân viên</h2>
                     <hr/>                    
                 </div>             
                 <div class="row">

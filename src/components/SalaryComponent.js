@@ -4,7 +4,7 @@
  import {Link} from 'react-router-dom';
  
 
- /* hàm StaffList render ra phần body trang */
+ /* hàm RenderSalary render ra nội dung từng nhân viên */
  function RenderSalary({staff,salary}){
  
    return(
@@ -24,14 +24,14 @@
    );
  }
 
-
+/* Hàm render ra toàn bộ trang bảng lương nhân viên */
  function Salary(props){
       const [stafflist, setStaffList] = useState(props.staff);
-
+/* Hàm tính lương nhân viên */
      function SalaryCalculation(salaryScale,overTime){         
       return salaryScale*10*300000 + overTime*200000;
      } 
-
+/* hàm sắp xếp lương nhân viên */
       function sortSalary(sort){
       let sortSalaryList=[...stafflist]
       let x=0;
@@ -52,7 +52,7 @@
      }
      setStaffList(sortSalaryList);
      } 
-
+/* hàm sắp xếp thời gian overTime của nhân viên */
      function sortOverTime(sort){
       let sortOverTime=[...stafflist]
       let x=0;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-
+/* hàm render ra Footer của toàn bộ các trang */
 function Footer(props){
     return(
         <div className='footer'>

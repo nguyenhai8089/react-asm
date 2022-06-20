@@ -3,6 +3,7 @@ import React from 'react';
 import {BreadcrumbItem,Breadcrumb, Card} from 'reactstrap';
 import {Link} from 'react-router-dom';
 
+/* hàm render ra thông tin từng phòng ban */
 const RenderDepartment=({department})=>{
     return(
         <div>
@@ -12,8 +13,8 @@ const RenderDepartment=({department})=>{
             </Card>
         </div>
     );
-
 }
+/* hàm render ra toàn bộ trang phòng ban */
 function Department(props){
     const department=props.department.map((department)=>{
         return(
