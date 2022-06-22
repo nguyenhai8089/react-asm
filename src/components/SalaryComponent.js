@@ -96,15 +96,15 @@
                  </div> 
                  
                 <div className='row'>
-                  <div className='col-6'>
-                    <h5>sắp xếp theo mức lương</h5>
-                    <Button className='mr-2' onClick={()=>sortSalary("luong thap")}><i class="fa fa-arrow-up"></i> Lương Thấp</Button>
-                    <Button onClick={()=>sortSalary("luong cao")}><i class="fa fa-arrow-down"></i> Lương cao</Button>
+                  <div className='col-12 col-lg-6'>
+                    <h5>Sắp xếp theo mức lương</h5>
+                    <Button className='m-2' onClick={()=>sortSalary("luong thap")}><i class="fa fa-arrow-up"></i> Lương Thấp</Button>
+                    <Button className='m-2' onClick={()=>sortSalary("luong cao")}><i class="fa fa-arrow-down"></i> Lương cao</Button>
                   </div>
-                  <div className='col-6'>
-                    <h5>sắp xếp theo số ngày tăng ca</h5>
-                    <Button className='mr-2' onClick={()=>sortOverTime("tang ca thap")}><i class="fa fa-arrow-up"></i> Số ngày tăng ca Thấp</Button>
-                    <Button onClick={()=>sortOverTime("tang ca cao")}><i class="fa fa-arrow-down"></i> Số ngày tăng ca cao</Button>
+                  <div className='col-12 col-lg-6'>
+                    <h5>Sắp xếp theo thời gian tăng ca</h5>
+                    <Button className='m-2' onClick={()=>sortOverTime("tang ca thap")}><i class="fa fa-arrow-up"></i> Thời gian tăng ca Thấp</Button>
+                    <Button className='m-2' onClick={()=>sortOverTime("tang ca cao")}><i class="fa fa-arrow-down"></i> Thời gian tăng ca cao</Button>
                   </div>                  
                  
                 </div>      

@@ -6,11 +6,11 @@ import {Link} from 'react-router-dom';
 /* hàm render chi tiết thồng tin của nhân viên */
 function RenderStaffDetail({staff1}){
     return(
-        <div className='col-12 row'>
-            <div className='mt-4 left col-lg-3 col-md-4 col-6'> 
+        <div className='row'>
+            <div className='mt-5 left col-lg-3 col-md-4 col-12'> 
                 <CardImg  src={staff1.image}/>     
             </div>
-            <div className='mt-1 right col-lg-9 col-md-8 col-6'>
+            <div className='mt-1 right col-lg-9 col-md-8 col-12'>
                 <CardBody>
                     <CardTitle>Họ và tên: <b>{staff1.name}</b> </CardTitle>
                     <CardText>Ngày sinh: {dateFormat(staff1.doB,'dd/mm/yyyy')}</CardText>
@@ -41,10 +41,10 @@ function StaffDetail(props){
                         </Breadcrumb>
                         <hr/>
                     </div>
-                    <Card className=''>
-                         <div className="container row"key={staff1.id}>
+                    <Card key={staff1.id} className='container'>
+                         
                              <RenderStaffDetail staff1={staff1}/>                                               
-                         </div>                         
+                                                 
                     </Card>
                     <hr/>
                 </div>                
