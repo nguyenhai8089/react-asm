@@ -16,7 +16,14 @@ class Main extends Component {
   constructor(props){
     super(props);
     this.state={staffs:STAFFS, department:DEPARTMENTS};
+    this.onNewStaff=this.onNewStaff.bind(this);
   }  
+  /* hàm thêm nhân viên mới */
+  onNewStaff=(staff)=>{
+    const newStaff ={...staff};
+    this.setState({staffs:[...this.state.staffs,newStaff]});
+    console.log(newStaff,this.state.staffs);
+  }
   
   render(){
     const StaffId = ({ match }) => {
@@ -28,11 +35,12 @@ class Main extends Component {
         />
       );
     };
+    
     return (
       <div >
         <Header/>
         <Switch>
-             <Route exact path='/staff' component={()=><StaffList staff={this.state.staffs}/>}/>
+             <Route exact path='/staff' component={()=><StaffList onNewStaff={this.onNewStaff} staff={this.state.staffs}/>}/>
              <Route exact path='/staff/:id' component={StaffId}/>  
              <Route exact path='/department' component={()=><Department department={this.state.department}/>}/>
              <Route exact path='/salary' component={()=><Salary staff={this.state.staffs}/>}/>
