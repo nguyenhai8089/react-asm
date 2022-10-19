@@ -57,19 +57,17 @@ class StaffList extends Component{
     }
     /* hàm tìm kiếm nhân viên  */
     searchStaff(event){
-        event.preventDefault();
-        alert("NameSearch: "+this.NameSearch.value
-        );
+        event.preventDefault();       
         const NameS1= this.NameSearch.value;        
         console.log("giá trị của NameSearch ="+NameS1);
+        /* hàm lọc nhân viên */
         const staffList=this.props.staff        
-        .filter((val) =>{
-            if(NameS1==="") 
-                return val;
-            else if( val.name.toLowerCase().includes(NameS1.toLowerCase()))
-                return val;
-        })
-        this.setState({newStaffFilter:staffList});
+        .filter((val) => val.name.toLowerCase().includes(NameS1.toLowerCase()));
+            if(staffList.length!==0) 
+                return this.setState({newStaffFilter:staffList});
+            else
+                return this.setState({newStaffFilter:[...this.props.staff]});
+        
     }
     /* hàm sự kiện khi người dùng bấm vào ô input mà không nhập dữ liệu */
     handleBlur=(field)=>(event)=>{
@@ -108,8 +106,6 @@ class StaffList extends Component{
         alert("Vui lòng nhập đầy đủ thông tin các trường theo hướng dẫn")
         else
         this.props.onNewStaff(newStaff);
-
-        
     }
     /* hàm đóng mở form thêm nhân viên */
     toggleModal(){
@@ -141,20 +137,20 @@ class StaffList extends Component{
         if(department==='')
             {errors.department="Phòng ban không được bỏ trống";} 
         /* xác thực hệ số lương */
-        if((this.state.touched.salaryScale&&salaryScale>2)||(this.state.touched.salaryScale&&salaryScale<1))
-            {errors.salaryScale="Hệ số lương phải có giá trị từ 1.0 ->2.0";}
+        if((this.state.touched.salaryScale&&salaryScale>4)||(this.state.touched.salaryScale&&salaryScale<1))
+            {errors.salaryScale="Hệ số lương phải có giá trị từ 1.0 ->4.0";}
         else if(this.state.touched.salaryScale&&salaryScale.split('').filter((x)=>x==='.').length!==1)
-            {errors.salaryScale="Hệ số lương phải có dấu chấm ở giữa (ví dụ 1.5)";}
+            {errors.salaryScale="Hệ số lương phải có dấu chấm ở giữa (ví dụ 2.5)";}
         /* xác thực số ngày nghỉ còn lại */
-        if((this.state.touched.annualLeave&&annualLeave>20)||(this.state.touched.annualLeave&&annualLeave<0))
-            {errors.annualLeave="Số ngày nghỉ còn lại phải có giá trị từ 0 ->20";}
-        else if(this.state.touched.annualLeave&&annualLeave.split('').filter((x)=>x==='.').length!==0)
-            {errors.annualLeave="Số ngày nghỉ phải là số không chứa dấu chấm ";}
+        if((this.state.touched.annualLeave&&annualLeave>12)||(this.state.touched.annualLeave&&annualLeave<0))
+            {errors.annualLeave="Số ngày nghỉ còn lại phải có giá trị từ 0.0 ->12.0";}
+        else if(this.state.touched.annualLeave&&annualLeave.split('').filter((x)=>x==='.').length!==1)
+            {errors.annualLeave="Số ngày nghỉ phải là số có chứa dấu chấm ở giữa (ví dụ 8.5)";}
         /* xác thực số ngày đã tăng ca */
         if((this.state.touched.overTime&&overTime>30)||(this.state.touched.overTime&&overTime<0))
-            {errors.overTime="Số ngày làm thêm phải có giá trị từ 0 ->30";}
-        else if(this.state.touched.overTime&&overTime.split('').filter((x)=>x==='.').length!==0)
-            {errors.overTime="Số ngày làm thêm phải là số không chứa dấu chấm";}
+            {errors.overTime="Số ngày làm thêm phải có giá trị từ 0.0 ->30.0";}
+        else if(this.state.touched.overTime&&overTime.split('').filter((x)=>x==='.').length!==1)
+            {errors.overTime="Số ngày làm thêm phải là số có chứa dấu chấm ở giữa (ví dụ 9.5)";}
         
         return errors; 
     }
@@ -196,7 +192,6 @@ class StaffList extends Component{
                                     innerRef={(input)=>this.NameSearch=input}
                                     placeholder='Tìm kiếm nhân viên'
                                 />
-
                             </div>
                             <div className='col-4 col-md-4'>
                                 <Button color='success'>Tìm Kiếm</Button>
@@ -288,8 +283,7 @@ class StaffList extends Component{
                                         onChange={this.handleInputChange}                                       
                                         valid={errors.department===""}
                                         invalid={errors.department!==""}
-                                    >
-                                                                  
+                                    >                            
                                     <option value="">Chọn Phòng Ban</option>
                                     <option value="Dept01">Sale</option>
                                     <option value="Dept02">HR</option>
@@ -312,7 +306,7 @@ class StaffList extends Component{
                                         name='salaryScale'
                                         value={this.state.salaryScale}
                                         onBlur={this.handleBlur('salaryScale')}
-                                        placeholder='giá trị nhập 1.0 -> 2.0'
+                                        placeholder='giá trị nhập 1.0 -> 4.0'
                                         onChange={this.handleInputChange}
                                         valid={errors.salaryScale===""}
                                         invalid={errors.salaryScale!==""}
@@ -332,7 +326,7 @@ class StaffList extends Component{
                                         name='annualLeave'
                                         value={this.state.annualLeave}
                                         onBlur={this.handleBlur('annualLeave')}
-                                        placeholder='giá trị nhập 0 -> 20'
+                                        placeholder='giá trị nhập 0.0 -> 12.0'
                                         onChange={this.handleInputChange}
                                         valid={errors.annualLeave===""}
                                         invalid={errors.annualLeave!==""}
@@ -352,7 +346,7 @@ class StaffList extends Component{
                                         name='overTime'
                                         value={this.state.overTime}
                                         onBlur={this.handleBlur('overTime')}
-                                        placeholder='giá trị nhập 0 -> 30'
+                                        placeholder='giá trị nhập 0.0 -> 30.0'
                                         onChange={this.handleInputChange}
                                         valid={errors.overTime===""}
                                         invalid={errors.overTime!==""}
@@ -362,13 +356,11 @@ class StaffList extends Component{
                                     </FormFeedback>
                                 </Col>
                             </FormGroup>
-                            
                             <FormGroup row>
                                 <Col md={{size:5,offset:5}} >
                                     <Button type='submit' name='submit' color='primary'onClick={this.toggleModal}>
                                         Submit
                                     </Button>
-
                                 </Col>
                             </FormGroup>
                         </Form>
@@ -379,6 +371,5 @@ class StaffList extends Component{
     }
 
     }
-     
 
 export default StaffList;
