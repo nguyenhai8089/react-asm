@@ -16,7 +16,7 @@ import {
     FormFeedback
     }from 'reactstrap';
 import {Link} from 'react-router-dom';
-import { DEPARTMENTS } from "../shared/staffs";
+/* import { DEPARTMENTS } from "../shared/staffs"; */
 
 
 /* hàm Render ra ảnh và tên nhân viên */
@@ -113,7 +113,7 @@ class StaffList extends Component{
             this.state.overTime        
             );
         event.preventDefault();
-        const department = DEPARTMENTS.find(
+        const department = this.props.department.find(
             (department) =>department.id === this.state.department
         );
         console.log(department);
