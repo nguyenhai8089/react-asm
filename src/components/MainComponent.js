@@ -13,7 +13,7 @@ import StaffDetail from './StaffDetailComponent';
 import {Route,Switch,Redirect,withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { SET_STATE } from '../redux/functionTech';
-import { ConfigureStore} from '../redux/ConfigureStore'
+/* import { ConfigureStore} from '../redux/ConfigureStore' */
 /* import { STAFFS } from '../shared/staffs'; */
 
 const mapStateToProps = (state)=>{
@@ -22,30 +22,23 @@ const mapStateToProps = (state)=>{
     department:state.department
   }
 }
+
 const mapDispatchToProps=(dispatch)=>({
-  DispatchAction:()=>dispatch(DispatchAction())
-  
+  addStaff: staffs => dispatch(SET_STATE(staffs))  
 });
-function DispatchAction(staff){
-  const newStaff={...staff}
-  const tech=[...this.props.staffs,newStaff]
-  ConfigureStore.dispatch(SET_STATE(tech))
-}
+
 
 /* hàm render ra toàn bộ ứng dụng này */
 class Main extends Component {
   constructor(props){
-    super(props);
-    /* this.state={staffs:STAFFS, department:DEPARTMENTS}; */
+    super(props);    
     this.onNewStaff=this.onNewStaff.bind(this);
   }  
+
   /* hàm thêm nhân viên mới */
-  onNewStaff=(staff)=>{
-    DispatchAction(staff);
-    /* const newStaff ={...staff};
-    this.setState({staffs:[...this.props.staffs,newStaff]});
-    console.log(newStaff,this.props.staffs); */
-  }
+  onNewStaff=(newStaff)=>{    
+     this.props.addStaff([...this.props.staffs, newStaff ])    
+  } 
   
   render(){
     const StaffId = ({ match }) => {
