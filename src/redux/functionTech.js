@@ -1,6 +1,6 @@
-export function SET_STATE (text) {
+export function onNewStaff (newStaff) {
     return {
        type: "SET_STATE",
-       tech: text
+       payload: newStaff
      }
   }

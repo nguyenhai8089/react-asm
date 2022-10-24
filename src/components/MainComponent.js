@@ -12,7 +12,7 @@ import StaffDetail from './StaffDetailComponent';
 
 import {Route,Switch,Redirect,withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { SET_STATE } from '../redux/functionTech';
+import { onNewStaff } from '../redux/functionTech';
 /* import { ConfigureStore} from '../redux/ConfigureStore' */
 /* import { STAFFS } from '../shared/staffs'; */
 
@@ -24,7 +24,7 @@ const mapStateToProps = (state)=>{
 }
 
 const mapDispatchToProps=(dispatch)=>({
-  addStaff: staffs => dispatch(SET_STATE(staffs))  
+  onNewStaff: newStaff => dispatch(onNewStaff(newStaff))  
 });
 
 
@@ -37,7 +37,7 @@ class Main extends Component {
 
   /* hàm thêm nhân viên mới */
   onNewStaff=(newStaff)=>{    
-     this.props.addStaff([...this.props.staffs, newStaff ])    
+     this.props.onNewStaff(newStaff);   
   } 
   
   render(){

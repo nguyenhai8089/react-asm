@@ -10,7 +10,9 @@ export const Reducer = (state = initialState, action)  => {
         case "SET_STATE":
             return {
                 ...state,
-                tech: action.tech
+                staffs: [...state.staffs,action.payload]
+               
+               
           };
         
         default:
