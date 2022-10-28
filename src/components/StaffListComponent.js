@@ -144,7 +144,7 @@ class StaffList extends Component{
             (errors.annualLeave!=="")||
             (errors.overTime!=="") 
             )
-             {alert("Vui lòng nhập đầy đủ thông tin các trường theo hướng dẫn")
+             {alert("Vui lòng nhập đầy đủ thông tin các trường, không được bỏ trống")
              this.setState(
                 {isModalOpen:true}
             );}
@@ -205,6 +205,10 @@ class StaffList extends Component{
             this.state.touched.salaryScale&&salaryScale.split('').filter((x)=>x==='.').length!==1
             )
             {errors.salaryScale="Hệ số lương phải có dấu chấm ở giữa (ví dụ 2.5)";}
+        else if(
+            this.state.touched.salaryScale&&salaryScale.length>3
+            )
+            {errors.salaryScale="Hệ số lương phải có tối đa 3 ký tự"; }
 
         /* xác thực số ngày nghỉ còn lại */
         if(
@@ -216,6 +220,10 @@ class StaffList extends Component{
             this.state.touched.annualLeave&&annualLeave.split('').filter((x)=>x==='.').length!==1
             )
             {errors.annualLeave="Số ngày nghỉ phải là số có chứa dấu chấm ở giữa (ví dụ 8.5)";}
+        else if(
+            this.state.touched.annualLeave&&annualLeave.length>4
+            )
+            {errors.annualLeave="Số ngày nghỉ còn lại phải có tối đa 4 ký tự"; }
 
         /* xác thực số ngày đã tăng ca */
         if(
@@ -227,6 +235,10 @@ class StaffList extends Component{
             this.state.touched.overTime&&overTime.split('').filter((x)=>x==='.').length!==1
             )
             {errors.overTime="Số ngày làm thêm phải là số có chứa dấu chấm ở giữa (ví dụ 9.5)";}
+        else if(
+            this.state.touched.overTime&&overTime.length>4
+            )
+            {errors.overTime="Số ngày ngày làm thêm phải có tối đa 4 ký tự"; }
         
         return errors; 
     }
