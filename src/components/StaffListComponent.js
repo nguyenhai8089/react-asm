@@ -319,7 +319,8 @@ class StaffList extends Component{
                                                 required,
                                                 isNumber,
                                                 RangeSalaryScale,
-                                                dotOfNumber
+                                                dotOfNumber,
+                                                maxLength:maxLength(3)
                                             }
                                         }
                                     />
@@ -333,8 +334,8 @@ class StaffList extends Component{
                                                 required:'Hệ số lương không được bỏ trống, ',
                                                 isNumber:'hệ số lương phải là kiểu số, ',
                                                 RangeSalaryScale:"hệ số lương nhận giá trị từ 1.0-->4.0, ",
-                                                dotOfNumber: "hệ số lương phải là số thập phân có 1 chữ số sau dấu chấm hoặc dấu phảy (ví dụ 2.5 hoặc 2,5)"
-                                                
+                                                dotOfNumber: "hệ số lương phải là số thập phân có 1 chữ số sau dấu chấm (ví dụ 2.5) ",
+                                                maxLength:" hệ số lương có tối đa 3 ký tự"
                                             }
                                         }
                                     />
@@ -358,7 +359,8 @@ class StaffList extends Component{
                                                 required,
                                                 isNumber,
                                                 RangeAnnualLeave,
-                                                dotOfNumber
+                                                dotOfNumber,
+                                                maxLength:maxLength(4)
                                             }
                                         }
                                     />
@@ -371,7 +373,8 @@ class StaffList extends Component{
                                                 required:'Số ngày nghỉ còn lại không được bỏ trống, ',
                                                 isNumber:'số ngày nghỉ còn lại phải là kiểu số, ',
                                                 RangeAnnualLeave:"Số ngày nghỉ còn lại nhận giá trị từ 0.0-->12.0, ",
-                                                dotOfNumber: "số ngày nghỉ còn lại phải là số thập phân có 1 chữ số sau dấu chấm hoặc dấu phảy (ví dụ 8.5 hoặc 8,5)"
+                                                dotOfNumber: "số ngày nghỉ còn lại phải là số thập phân có 1 chữ số sau dấu chấm (ví dụ 8.5 ) ",
+                                                maxLength:"số ngày nghỉ còn lại có tối đa 4 ký tự"
                                             }
                                         }
                                     />
@@ -394,7 +397,8 @@ class StaffList extends Component{
                                                 required,
                                                 isNumber,
                                                 RangeOverTime,
-                                                dotOfNumber
+                                                dotOfNumber,
+                                                maxLength:maxLength(4)
                                             }
                                         }
                                     />
@@ -407,7 +411,8 @@ class StaffList extends Component{
                                                 required:'Số ngày tăng ca không được bỏ trống, ',
                                                 isNumber:'số ngày tăng ca phải là kiểu số, ',
                                                 RangeOverTime:"số ngày tăng ca nhận giá trị từ 0.0-->30.0, ",
-                                                dotOfNumber: "số ngày tăng ca phải là số thập phân có 1 chữ số sau dấu chấm hoặc dấu phảy (ví dụ 10.0 hoặc 10.0)"
+                                                dotOfNumber: "số ngày tăng ca phải là số thập phân có 1 chữ số sau dấu chấm (ví dụ 10.0) ",
+                                                maxLength:"số ngày tăng ca có tối đa 4 ký tự"
                                             }
                                         }
                                     />
