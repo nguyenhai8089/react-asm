@@ -46,30 +46,11 @@ function RenderStaffList({staff}){
 class StaffList extends Component{
     constructor(props){
         super(props);
-        this.state={
-            id:'123',
-            name:'',
-            doB:'',
-            salaryScale:'',
-            startDate:'',
-            department:'',
-            annualLeave:'',
-            overTime:'',            
-            image:'/assets/images/alberto.png',
-            touched:{
-                name:false,
-                doB:false,
-                salaryScale:false,
-                startDate:false,
-                department:false,
-                annualLeave:false,
-                overTime:false,               
-            },
+        this.state={            
             newStaffFilter:this.props.staff,
             isModalOpen:false
         };
-        this.searchStaff=this.searchStaff.bind(this);        
-        this.handleInputChange=this.handleInputChange.bind(this);
+        this.searchStaff=this.searchStaff.bind(this); 
         this.handleSubmit=this.handleSubmit.bind(this);   
         this.toggleModal=this.toggleModal.bind(this);  
                
@@ -96,29 +77,22 @@ class StaffList extends Component{
         
     }
     
-    /* hàm sự kiện handleInputChange nhận dữ liệu nhập vào */
-    handleInputChange(event){
-        const value=event.target.value;
-        const name=event.target.name;
-        this.setState({[name]:value});
-    }
+   
     /* hàm sự kiện handleSubmit khi người dùng thêm nhân viên */
-    handleSubmit(event){
-        
-        event.preventDefault();
+    handleSubmit(value){
         const department = this.props.department.find(
-            (department) =>department.id === this.state.department
+            (department) =>department.id === value.department
         );
         console.log(department);
         const newStaff ={
             id:this.props.staff.length,
-            name:this.state.name,
-            doB:this.state.doB,
-            startDate:this.state.startDate,
+            name:value.name,
+            doB:value.doB,
+            startDate:value.startDate,
             department:department,
-            salaryScale:this.state.salaryScale,
-            annualLeave:this.state.annualLeave,
-            overTime:this.state.overTime,
+            salaryScale:value.salaryScale,
+            annualLeave:value.annualLeave,
+            overTime:value.overTime,
             image:'/assets/images/alberto.png'            
         };
         //điều kiện hoàn thành form thêm nhân viên
@@ -129,14 +103,16 @@ class StaffList extends Component{
             (newStaff.department==="")||
             (newStaff.salaryScale==="")||
             (newStaff.annualLeave==="")||
-            (newStaff.overTime==="") 
+            (newStaff.overTime==="")
             )
              /* alert("Vui lòng nhập đầy đủ thông tin các trường theo hướng dẫn") */
              alert("Vui lòng nhập đầy đủ thông tin các trường theo hướng dẫn")
-        else
-              this.props.onNewStaff(newStaff);
-             
+        else {
+            this.props.onNewStaff(newStaff);
+            this.toggleModal();
+        }   
     }
+
     /* hàm đóng mở form thêm nhân viên */
     toggleModal(){
         this.setState(
@@ -144,8 +120,7 @@ class StaffList extends Component{
         );
     }
    
-
-    render(event){        
+    render(){        
         console.log("giá trị của newStaffFilter="+this.state.newStaffFilter);
         console.log("giá trị của staff="+this.props.staff);
         const staffList1=this.state.newStaffFilter
@@ -198,9 +173,9 @@ class StaffList extends Component{
                         Thêm nhân viên
                     </ModalHeader>
                     <ModalBody>
-                        <LocalForm onsubmit={this.handleSubmit}>
-                            {/*  Họ và tên: */}
-                            <Row>
+                        <LocalForm  onSubmit={ this.handleSubmit}>
+                             {/* Họ và tên: */}
+                            <Row >
                                 <Label md={3}>
                                     Họ và tên:
                                 </Label>
@@ -208,11 +183,9 @@ class StaffList extends Component{
                                     <Control
                                         type='text'
                                         model='.name'
-                                        id='name'
-                                        name='name' 
-                                        value={this.state.name}
-                                        onChange={this.handleInputChange}                                   
-                                        placeholder="Từ 3 đến 20 ký tự"
+                                        id='name'                                                                                                        
+                                        placeholder="Từ 3 đến 20 ký tự"  
+                                                                 
                                         validators={
                                             {
                                                 required,
@@ -224,7 +197,7 @@ class StaffList extends Component{
                                     <Errors
                                         className='text-danger'
                                         model='.name'
-                                        show='touched'
+                                        show='touched'                                        
                                         messages=
                                         {
                                             {
@@ -246,10 +219,7 @@ class StaffList extends Component{
                                     <Control
                                         type='date'
                                         model='.doB'
-                                        id='doB'
-                                        name='doB'
-                                        value={this.state.doB}
-                                        onChange={this.handleInputChange}
+                                        id='doB'                                      
                                         validators={
                                             {
                                                 required
@@ -278,10 +248,7 @@ class StaffList extends Component{
                                     <Control
                                         type='date'
                                         model='.startDate'
-                                        id='startDate'
-                                        name='startDate'
-                                        value={this.state.startDate}
-                                        onChange={this.handleInputChange}
+                                        id='startDate'                                        
                                         validators={
                                             {
                                                 required
@@ -306,13 +273,10 @@ class StaffList extends Component{
                                     Phòng ban:
                                 </Label>
                                 <Col md={8}>                                    
-                                    <Control.select 
+                                    <Control.select
                                         type='select'                             
                                         model='.department'
-                                        id= 'department' 
-                                        name='department'
-                                        value={this.state.department}
-                                        onChange={this.handleInputChange}                                                                               
+                                        id= 'department'                                                                                                                       
                                         validators={
                                             {
                                                 required
@@ -339,19 +303,17 @@ class StaffList extends Component{
                                 </Col>
                             </Row>
                             {/* Hệ số lương: */}
-                            <Row>
+                            <Row >
                                 <Label md={3}>
                                     Hệ số lương:
                                 </Label>
                                 <Col md={8}>                                    
                                     <Control
-                                        type='number'
+                                        type='text'
                                         model='.salaryScale'
-                                        id='salaryScale'
-                                        name='salaryScale'
-                                        value={this.state.salaryScale}
-                                        onChange={this.handleInputChange}
-                                        placeholder='Giá trị từ 1.0 ->4.0'
+                                        id='salaryScale'                                                                                                        
+                                        placeholder="Giá trị từ 1.0 ->4.0"  
+                                                                 
                                         validators={
                                             {
                                                 required,
@@ -364,13 +326,15 @@ class StaffList extends Component{
                                     <Errors
                                         className='text-danger'
                                         model='.salaryScale'
-                                        show='touched'
-                                        messages={
+                                        show='touched'                                        
+                                        messages=
+                                        {
                                             {
                                                 required:'Hệ số lương không được bỏ trống, ',
                                                 isNumber:'hệ số lương phải là kiểu số, ',
                                                 RangeSalaryScale:"hệ số lương nhận giá trị từ 1.0-->4.0, ",
                                                 dotOfNumber: "hệ số lương phải là số thập phân có 1 chữ số sau dấu chấm hoặc dấu phảy (ví dụ 2.5 hoặc 2,5)"
+                                                
                                             }
                                         }
                                     />
@@ -383,13 +347,11 @@ class StaffList extends Component{
                                 </Label>
                                 <Col md={8}>                                    
                                     <Control 
-                                        type='number'
+                                        type='text'
                                         
                                         model='.annualLeave'
                                         id='annualLeave'
-                                        name='annualLeave'
-                                        value={this.state.annualLeave}
-                                        onChange={this.handleInputChange}
+                                        
                                         placeholder='Giá trị từ 0.0-12.0'
                                         validators={
                                             {
@@ -422,12 +384,10 @@ class StaffList extends Component{
                                 </Label>
                                 <Col md={8}>                                    
                                     <Control  
-                                        type='number'
+                                        type='text'
                                         id='overTime'
                                         model='.overTime'
-                                        name='overTime'
-                                        value={this.state.overTime}
-                                        onChange={this.handleInputChange}
+                                        
                                         placeholder='Giá trị từ 0.0-30.0'
                                         validators={
                                             {
@@ -453,14 +413,15 @@ class StaffList extends Component{
                                     />
                                 </Col>
                             </Row>
+                            
                             {/* Submit */}
                             <Row>
-                                <Col md={{size:5,offset:5}} >
-                                    <Button type='submit' color='primary' onClick={this.handleSubmit}  >
+                                <Col md={{size:5, offset:5}}>
+                                    <Button type='submit' color='primary' >
                                         Submit
                                     </Button>
                                 </Col>
-                            </Row> 
+                            </Row>                           
                                                        
                         </LocalForm>
                         
