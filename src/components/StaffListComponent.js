@@ -144,9 +144,13 @@ class StaffList extends Component{
             (errors.annualLeave!=="")||
             (errors.overTime!=="") 
             )
-             alert("Vui lòng nhập đầy đủ thông tin các trường theo hướng dẫn")
+             {alert("Vui lòng nhập đầy đủ thông tin các trường theo hướng dẫn")
+             this.setState(
+                {isModalOpen:true}
+            );}
         else
               this.props.onNewStaff(newStaff);
+              /* this.toggleModal(); */
     }
     /* hàm đóng mở form thêm nhân viên */
     toggleModal(){
@@ -444,7 +448,7 @@ class StaffList extends Component{
                             {/* Submit */}
                             <FormGroup row>
                                 <Col md={{size:5,offset:5}} >
-                                    <Button type='submit' name='submit' color='primary'onClick={this.toggleModal}>
+                                    <Button type='submit' name='submit' color='primary'>
                                         Submit
                                     </Button>
                                 </Col>
