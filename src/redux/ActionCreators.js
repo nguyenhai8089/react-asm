@@ -52,3 +52,29 @@ export const fetchDepartments=()=>(dispatch)=>{
     .then(departments => dispatch(addDepartments(departments)))
 }
 
+export const addSalary =(salary)=>({
+    type:ActionTypes.ADD_SALARY,
+    payload:salary
+});
+export const fetchSalary=()=>(dispatch)=>{
+    return fetch(baseUrl + 'staffsSalary')
+    .then(
+        response =>{
+            if(response.ok){
+                return response;
+            }
+            else {
+                var error = new Error('Error'+response.status+':'+response.statusText);
+                error.response = response;
+                throw error;
+            }
+
+        },
+        error=>{
+            throw error;
+        }
+    )
+    .then(response=>response.json())
+    .then(salary => dispatch(addSalary(salary)))
+}
+
