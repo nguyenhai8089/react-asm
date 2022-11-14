@@ -6,7 +6,7 @@ export const Departments=(state={
         case ActionTypes.ADD_DEPARTMENTS:
             return {
                 ...state,
-                staffs:action.payload
+                departments:action.payload
             }        
         default:
             return state;
