@@ -30,7 +30,8 @@ export const Staffs=(state={
             var staff=action.payload;
             return{
                 ...state,
-                staffs:state.staffs.concat(staff)
+                /* staffs:state.staffs.concat(staff) */
+                staffs:[...state.staffs,staff]
             }
         default:
             return state;

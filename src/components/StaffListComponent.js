@@ -14,7 +14,6 @@ import {
     Col,Label
     }from 'reactstrap';
 import {Link} from 'react-router-dom';
-/* import { DEPARTMENTS } from "../shared/staffs"; */
 import {Control,LocalForm,Errors} from 'react-redux-form'
 import {Loading} from './LoadingComponent';
 
@@ -30,6 +29,7 @@ const dotOfNumber= (val)=>val&&(val.split('').filter((x)=>x==='.').length===1)
 
 /* hàm Render ra ảnh và tên nhân viên */
 function RenderStaffList({staff1,isLoading,errMess}){
+    console.log('giá trị của staff1,isLoading,errMess '+staff1,isLoading,errMess)
     if(isLoading){
         return<Loading />
     } else if(errMess){
@@ -88,37 +88,19 @@ class StaffList extends Component{
    
     /* hàm sự kiện handleSubmit khi người dùng thêm nhân viên */
     handleSubmit(value){
-        const department = this.props.department.find(
-            (department) =>department.id === value.department
+        
+        this.props.postAddStaff(
+            this.props.staff.length,
+            value.name,
+            value.doB,
+            value.salaryScale,
+            value.startDate,
+            value.departmentId,
+            value.annualLeave,
+            value.overTime,
+            "/assets/images/alberto.png",
+            value.salaryScale*10*300000 + value.overTime*200000,
         );
-        console.log(department);
-        const newStaff ={
-            id:this.props.staff.length,
-            name:value.name,
-            doB:value.doB,
-            startDate:value.startDate,
-            department:department,
-            salaryScale:value.salaryScale,
-            annualLeave:value.annualLeave,
-            overTime:value.overTime,
-            image:'/assets/images/alberto.png'            
-        };
-        //điều kiện hoàn thành form thêm nhân viên
-        if (
-            (newStaff.name==="")||
-            (newStaff.doB==="")||
-            (newStaff.startDate==="")||
-            (newStaff.department==="")||
-            (newStaff.salaryScale==="")||
-            (newStaff.annualLeave==="")||
-            (newStaff.overTime==="")
-            )
-             /* alert("Vui lòng nhập đầy đủ thông tin các trường theo hướng dẫn") */
-             alert("Vui lòng nhập đầy đủ thông tin các trường theo hướng dẫn")
-        else {
-            this.props.onNewStaff(newStaff);
-            this.toggleModal();
-        }   
     }
 
     /* hàm đóng mở form thêm nhân viên */
@@ -283,8 +265,8 @@ class StaffList extends Component{
                                 <Col md={8}>                                    
                                     <Control.select
                                         type='select'                             
-                                        model='.department'
-                                        id= 'department'                                                                                                                       
+                                        model='.departmentId'
+                                        id= 'departmentId'                                                                                                                       
                                         validators={
                                             {
                                                 required
@@ -300,7 +282,7 @@ class StaffList extends Component{
                                     </Control.select>
                                     <Errors
                                         className='text-danger'
-                                        model='.department'
+                                        model='.departmentId'
                                         show='touched'
                                         messages={
                                             {
@@ -426,7 +408,7 @@ class StaffList extends Component{
                                     />
                                 </Col>
                             </Row>
-                            
+                                                        
                             {/* Submit */}
                             <Row>
                                 <Col md={{size:5, offset:5}}>

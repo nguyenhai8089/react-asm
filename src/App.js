@@ -6,6 +6,7 @@ import Main from './components/MainComponent';
 import {Provider} from 'react-redux';
 import {ConfigureStore} from './redux/ConfigureStore';
 
+
 const store =ConfigureStore();
 
 /* hàm render ra toàn bộ ứng dụng này */

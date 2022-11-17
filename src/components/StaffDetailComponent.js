@@ -42,7 +42,7 @@ function StaffDetail(props){
         
         console.log('giá trị của staff sau filter'+staff1);  
         console.log('giá trị của department sau filter'+department1); 
-        if(department1 !=null)   
+        if(department1!=null)   
             return(
                 <div className='container'>
                     <div className='col-12'>
@@ -54,7 +54,8 @@ function StaffDetail(props){
                     </div>
                     <Card key={staff1.id} className='container'>
                          
-                             <RenderStaffDetail staff1={staff1} department1={department1} isLoading={props.staffsLoading} errMess={props.staffsErrMess}/>                                               
+                             <RenderStaffDetail staff1={staff1} department1={department1} isLoading={props.staffsLoading} errMess={props.staffsErrMess}/>    
+                                                                        
                                                  
                     </Card>
                     <hr/>
