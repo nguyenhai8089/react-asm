@@ -15,6 +15,7 @@ import {connect} from 'react-redux';
 import { onNewStaff } from '../redux/functionTech';
 import { fetchStaffs,fetchDepartments,fetchSalary } from '../redux/ActionCreators';
 
+
 const mapStateToProps = (state)=>{
   return {
     staffs:state.staffs,
@@ -50,22 +51,37 @@ class Main extends Component {
   
   render(){
     const StaffId = ({ match }) => {
+      
       return (
         <StaffDetail
           staff={this.props.staffs.staffs.filter(
-            (staff) => staff.id === parseInt(match.params.id,10)
+            (staff) => staff.id === parseInt(match.params.staffId,10)
           )[0]}
+          department={this.props.departments.departments}
+          staffsLoading={this.props.staffs.isLoading}
+          staffsErrMess={this.props.staffs.errMess}
         />
       );
     };
+    const DepartmentId = ({ match }) => {
+      return (
+        <StaffList
+          staff={this.props.staffs.staffs.filter(
+            (staff) => staff.departmentId === match.params.departmentId
+          )}          
+        />
+      );
+    };
+    
     
     return (
       <div >
         <Header/>
         <Switch>
-             <Route exact path='/staff' component={()=><StaffList onNewStaff={this.onNewStaff} department={this.props.department} staff={this.props.staffs.staffs}/>}/>
-             <Route exact path='/staff/:id' component={StaffId}/>  
+             <Route exact path='/staff' component={()=><StaffList onNewStaff={this.onNewStaff} department={this.props.departments.departments} staff={this.props.staffs.staffs} staffsLoading={this.props.staffs.isLoading} staffsErrMess={this.props.staffs.errMess}/>}/>
+             <Route exact path='/staff/:staffId' component={StaffId}/>  
              <Route exact path='/department' component={()=><Department department={this.props.departments.departments}/>}/>
+             <Route exact path='/department/:departmentId' component={DepartmentId}/>
              <Route exact path='/salary' component={()=><Salary staff={this.props.salary.salary}/>}/>
              <Redirect to='/staff'/>          
         </Switch>  

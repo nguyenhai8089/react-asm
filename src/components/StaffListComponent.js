@@ -16,6 +16,8 @@ import {
 import {Link} from 'react-router-dom';
 /* import { DEPARTMENTS } from "../shared/staffs"; */
 import {Control,LocalForm,Errors} from 'react-redux-form'
+import {Loading} from './LoadingComponent';
+
 
 const required = (val)=> val && val.length;
 const maxLength = (len)=>(val)=> !val||val.length<=len;
@@ -27,23 +29,29 @@ const RangeAnnualLeave =(val)=> 0<=val&&val<=12;
 const dotOfNumber= (val)=>val&&(val.split('').filter((x)=>x==='.').length===1)
 
 /* hàm Render ra ảnh và tên nhân viên */
-function RenderStaffList({staff}){
-    return(
-        <div>
-           <Card key={staff.id} >
-                <Link to ={`/staff/${staff.id}`}>
-                    <CardImg src={staff.image} alt={staff.name}/>
-                    <CardBody>
-                        <CardTitle>{staff.name}</CardTitle>
-                    </CardBody>
-                </Link>                        
-            </Card>
-        </div>
-    );
+function RenderStaffList({staff1,isLoading,errMess}){
+    if(isLoading){
+        return<Loading />
+    } else if(errMess){
+        return<h4>{errMess}</h4>
+    } else 
+        return(
+            <div>
+            <Card key={staff1.id} >
+                    <Link to ={`/staff/${staff1.id}`}>
+                        <CardImg src={staff1.image} alt={staff1.name}/>
+                        <CardBody>
+                            <CardTitle>{staff1.name}</CardTitle>
+                        </CardBody>
+                    </Link>                        
+                </Card>
+            </div>
+        );
 
 }
 /* hàm StaffList render ra danh sách nhân viên */
 class StaffList extends Component{
+    
     constructor(props){
         super(props);
         this.state={            
@@ -127,7 +135,7 @@ class StaffList extends Component{
         .map((val)=>{
             return(
                 <div className="col-6 col-md-4 col-lg-2 mt-3">
-                    <RenderStaffList staff={val}/>
+                    <RenderStaffList staff1={val} isLoading={this.props.staffsLoading} errMess={this.props.staffsErrMess}/>
                 </div>                
             );
         });

@@ -7,10 +7,14 @@ import {Link} from 'react-router-dom';
 const RenderDepartment=({department})=>{
     return(
         <div>
-            <Card className='p-3 m-2 bg-secondary text-white'>
-                <h4>{department.name}</h4>
-                <p>số lượng nhân viên: {department.numberOfStaff}</p>
-            </Card>
+            <Card key={department.id} >
+                <Link to ={`/department/${department.id}`}>
+                    <Card className='p-3 m-2 bg-secondary text-white'>
+                        <h4>{department.name}</h4>
+                        <p>số lượng nhân viên: {department.numberOfStaff}</p>
+                    </Card>                    
+                </Link>
+            </Card>            
         </div>
     );
 }
