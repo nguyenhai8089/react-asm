@@ -47,7 +47,7 @@ export const postAddStaff = (id,name,doB,salaryScale,startDate,departmentId,annu
     .catch((error)=> {console.log('post addStaff',error.message); alert('Your addStaff could not be posted \nError:'+error.message)})
 }
 //Hàm xóa nhân viên
-export const DeleteStaff=(id)=>(dispatch)=>{
+export const deleteOfStaff=(id)=>(dispatch)=>{
     dispatch(deleteStaffLoading(true));
     return fetch(baseUrl+'staffs/'+id,{
         method: 'DELETE'        
@@ -69,8 +69,7 @@ export const DeleteStaff=(id)=>(dispatch)=>{
         }
     )    
     .then((response)=>response.json())
-    /* .then((staff) => dispatch(addStaff(staff))) */
-    /* .then((staff) => dispatch(addStaffs(staff))) */
+    .then((staff) => dispatch(deleteStaff(staff)))
     .catch((error)=> {console.log('delete DeleteStaff',error.message); alert('Your DeleteStaff could not be delete \nError:'+error.message)})
 } 
 export const deleteStaff =(staff)=>({
@@ -117,8 +116,7 @@ export const patchAddStaff = (id,name,doB,salaryScale,startDate,departmentId,ann
         }
     )
     .then((response)=> response.json())
-    .then((response)=> dispatch(updateStaff(response)))
-    .then((response)=> dispatch(addStaffs(response)))
+    .then((response)=> dispatch(updateStaff(response)))    
     .catch((error)=> {console.log('patch updateStaff',error.message); alert('Your updateStaff could not be Patch \nError:'+error.message)})
 }
 export const updateStaff =(staffs)=>({

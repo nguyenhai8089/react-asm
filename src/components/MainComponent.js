@@ -8,7 +8,7 @@ import Footer from './FooterComponent';
 import StaffDetail from './StaffDetailComponent';
 import {Route,Switch,Redirect,withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { fetchStaffs,fetchDepartments,fetchSalary,postAddStaff,DeleteStaff,patchAddStaff } from '../redux/ActionCreators';
+import { fetchStaffs,fetchDepartments,fetchSalary,postAddStaff,deleteOfStaff,patchAddStaff } from '../redux/ActionCreators';
 
 
 const mapStateToProps = (state)=>{
@@ -24,7 +24,7 @@ const mapDispatchToProps=(dispatch)=>({
   fetchDepartments:()=>dispatch( fetchDepartments()),
   fetchSalary:()=>dispatch( fetchSalary()),
   postAddStaff:(id,name,doB,salaryScale,startDate,departmentId,annualLeave,overTime,image,salary)=>dispatch(postAddStaff(id,name,doB,salaryScale,startDate,departmentId,annualLeave,overTime,image,salary)),
-  DeleteStaff:(id)=>dispatch(DeleteStaff(id)),
+  deleteOfStaff:(id)=>dispatch(deleteOfStaff(id)),
   patchAddStaff:(id,name,doB,salaryScale,startDate,departmentId,annualLeave,overTime,image,salary)=>dispatch(patchAddStaff(id,name,doB,salaryScale,startDate,departmentId,annualLeave,overTime,image,salary))
 });
 
@@ -52,7 +52,7 @@ class Main extends Component {
           staffsErrMess={this.props.staffs.errMess}
           postAddStaff={this.props.postAddStaff}
           patchAddStaff={this.props.patchAddStaff}
-          DeleteStaff={this.props.DeleteStaff}
+          deleteOfStaff={this.props.deleteOfStaff}
           history={history}
         />
       );

@@ -19,7 +19,7 @@ import dateFormat from 'dateformat';
 import { Link, useParams } from "react-router-dom";
 import {Loading} from './LoadingComponent';
 import { useDispatch } from 'react-redux';
-import {DeleteStaff} from '../redux/ActionCreators'
+import {deleteOfStaff} from '../redux/ActionCreators'
 
 const required = (val)=> val && val.length;
 const maxLength = (len)=>(val)=> !val||val.length<=len;
@@ -64,7 +64,7 @@ function RenderStaffDetail({staff1,department1,isLoading,errMess}){
 /* hàm render toàn bộ trang chi tiết thồng tin của nhân viên */
 function StaffDetail(props){    
     const dispatch = useDispatch();
-    const id = useParams();
+    const id = props.staff.id;
     const [isModalOpen,setModal] = useState(false);
     function toggleModal(){
         setModal({
@@ -75,14 +75,14 @@ function StaffDetail(props){
     function handleDeleteStaff() {
         
         console.log(id)
-        dispatch(DeleteStaff(id));
+        dispatch(deleteOfStaff(id));
         props.history.push("/staff");
       }
    
     /* hàm sự kiện handleSubmit khi người dùng thêm nhân viên */
     function handleSubmitUpdate(value){        
         props.patchAddStaff(
-        props.staff.length,
+        props.staff.id,
         value.name,
         value.doB,
         value.salaryScale,
@@ -124,6 +124,270 @@ function StaffDetail(props){
                     onClick={handleDeleteStaff}>delete
                 </Button> 
                 <hr/>
+                <Modal isOpen={isModalOpen} toggle={toggleModal} >
+                    <ModalHeader >
+                        Thêm nhân viên
+                    </ModalHeader>
+                    <ModalBody>
+                        <LocalForm  onSubmit={handleSubmitUpdate}>
+                             {/* Họ và tên: */}
+                            <Row >
+                                <Label md={3}>
+                                    Họ và tên:
+                                </Label>
+                                <Col md={8}>                                    
+                                    <Control
+                                        type='text'
+                                        model='.name'
+                                        id='name'                                                                                                        
+                                        placeholder="Từ 3 đến 20 ký tự"  
+                                                                 
+                                        validators={
+                                            {
+                                                required,
+                                                minLength: minLength(3),
+                                                maxLength: maxLength(20)
+                                            }
+                                        }
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.name'
+                                        show='touched'                                        
+                                        messages=
+                                        {
+                                            {
+                                                required:'Họ và tên không được bỏ trống, ',
+                                                minLength:'Họ và tên phải có độ dài từ 3 ký tự ',
+                                                maxLength:'Họ và tên phải có độ dài nhỏ hơn hoặc bằng 20 ký tự'
+                                                
+                                            }
+                                        }
+                                    />
+                                </Col>
+                            </Row>
+                            {/* Ngày tháng năm sinh: */}
+                            <Row>
+                                <Label md={3}>
+                                    Ngày tháng năm sinh:
+                                </Label>
+                                <Col md={8}>                                    
+                                    <Control
+                                        type='date'
+                                        model='.doB'
+                                        id='doB'                                      
+                                        validators={
+                                            {
+                                                required
+                                            }
+                                        }
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.doB'
+                                        show='touched'
+                                        messages={
+                                            {
+                                                required:'Ngày tháng năm sinh không được bỏ trống',                                                
+                                            }
+                                        }
+                                        
+                                    />
+                                </Col>
+                            </Row>
+                            {/* Ngày bắt đầu: */}
+                            <Row>
+                                <Label md={3}>
+                                    Ngày bắt đầu:
+                                </Label>
+                                <Col md={8}>                                    
+                                    <Control
+                                        type='date'
+                                        model='.startDate'
+                                        id='startDate'                                        
+                                        validators={
+                                            {
+                                                required
+                                            }
+                                        }
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.startDate'
+                                        show='touched'
+                                        messages={
+                                            {
+                                                required:'Ngày vào công ty không được bỏ trống'
+                                            }
+                                        }                                        
+                                    />
+                                </Col>
+                            </Row>
+                            {/* Phòng ban: */}
+                            <Row>
+                                <Label md={3}>
+                                    Phòng ban:
+                                </Label>
+                                <Col md={8}>                                    
+                                    <Control.select
+                                        type='select'                             
+                                        model='.departmentId'
+                                        id= 'departmentId'                                                                                                                       
+                                        validators={
+                                            {
+                                                required
+                                            }
+                                        }
+                                    >                          
+                                    <option value="">Phòng ban</option>
+                                    <option value="Dept01">Sale</option>
+                                    <option value="Dept02">HR</option>
+                                    <option value="Dept03">Marketing</option>
+                                    <option value="Dept04">IT</option>
+                                    <option value="Dept05">Finance</option>
+                                    </Control.select>
+                                    <Errors
+                                        className='text-danger'
+                                        model='.departmentId'
+                                        show='touched'
+                                        messages={
+                                            {
+                                                required:'Bạn chưa chọn phòng ban, phòng ban không được bỏ trống'
+                                            }
+                                        }                                        
+                                    />
+                                </Col>
+                            </Row>
+                            {/* Hệ số lương: */}
+                            <Row >
+                                <Label md={3}>
+                                    Hệ số lương:
+                                </Label>
+                                <Col md={8}>                                    
+                                    <Control
+                                        type='text'
+                                        model='.salaryScale'
+                                        id='salaryScale'                                                                                                        
+                                        placeholder="Giá trị từ 1.0 ->4.0"  
+                                                                 
+                                        validators={
+                                            {
+                                                required,
+                                                isNumber,
+                                                RangeSalaryScale,
+                                                dotOfNumber,
+                                                maxLength:maxLength(3)
+                                            }
+                                        }
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.salaryScale'
+                                        show='touched'                                        
+                                        messages=
+                                        {
+                                            {
+                                                required:'Hệ số lương không được bỏ trống, ',
+                                                isNumber:'hệ số lương phải là kiểu số, ',
+                                                RangeSalaryScale:"hệ số lương nhận giá trị từ 1.0-->4.0, ",
+                                                dotOfNumber: "hệ số lương phải là số thập phân có 1 chữ số sau dấu chấm (ví dụ 2.5) ",
+                                                maxLength:" hệ số lương có tối đa 3 ký tự"
+                                            }
+                                        }
+                                    />
+                                </Col>
+                            </Row>
+                            {/* Số ngày nghỉ còn lại: */}
+                            <Row>
+                                <Label md={3}>
+                                    Số ngày nghỉ còn lại:
+                                </Label>
+                                <Col md={8}>                                    
+                                    <Control 
+                                        type='text'
+                                        
+                                        model='.annualLeave'
+                                        id='annualLeave'
+                                        
+                                        placeholder='Giá trị từ 0.0-12.0'
+                                        validators={
+                                            {
+                                                required,
+                                                isNumber,
+                                                RangeAnnualLeave,
+                                                dotOfNumber,
+                                                maxLength:maxLength(4)
+                                            }
+                                        }
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.annualLeave'
+                                        show='touched'
+                                        messages={
+                                            {
+                                                required:'Số ngày nghỉ còn lại không được bỏ trống, ',
+                                                isNumber:'số ngày nghỉ còn lại phải là kiểu số, ',
+                                                RangeAnnualLeave:"Số ngày nghỉ còn lại nhận giá trị từ 0.0-->12.0, ",
+                                                dotOfNumber: "số ngày nghỉ còn lại phải là số thập phân có 1 chữ số sau dấu chấm (ví dụ 8.5 ) ",
+                                                maxLength:"số ngày nghỉ còn lại có tối đa 4 ký tự"
+                                            }
+                                        }
+                                    />
+                                </Col>
+                            </Row>
+                            {/* Số ngày tăng ca: */}
+                            <Row>
+                                <Label md={3}>
+                                    Số ngày tăng ca:
+                                </Label>
+                                <Col md={8}>                                    
+                                    <Control  
+                                        type='text'
+                                        id='overTime'
+                                        model='.overTime'
+                                        
+                                        placeholder='Giá trị từ 0.0-30.0'
+                                        validators={
+                                            {
+                                                required,
+                                                isNumber,
+                                                RangeOverTime,
+                                                dotOfNumber,
+                                                maxLength:maxLength(4)
+                                            }
+                                        }
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.overTime'
+                                        show='touched'
+                                        messages={
+                                            {
+                                                required:'Số ngày tăng ca không được bỏ trống, ',
+                                                isNumber:'số ngày tăng ca phải là kiểu số, ',
+                                                RangeOverTime:"số ngày tăng ca nhận giá trị từ 0.0-->30.0, ",
+                                                dotOfNumber: "số ngày tăng ca phải là số thập phân có 1 chữ số sau dấu chấm (ví dụ 10.0) ",
+                                                maxLength:"số ngày tăng ca có tối đa 4 ký tự"
+                                            }
+                                        }
+                                    />
+                                </Col>
+                            </Row>
+                                                        
+                            {/* Submit */}
+                            <Row>
+                                <Col md={{size:5, offset:5}}>
+                                    <Button type='submit' color='primary' >
+                                        Submit
+                                    </Button>
+                                </Col>
+                            </Row>                           
+                                                       
+                        </LocalForm>
+                        
+                    </ModalBody>
+                </Modal>       
                 
             </div>                
         ); 
