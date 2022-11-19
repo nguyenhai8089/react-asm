@@ -19,7 +19,7 @@ import dateFormat from 'dateformat';
 import { Link, useParams } from "react-router-dom";
 import {Loading} from './LoadingComponent';
 import { useDispatch } from 'react-redux';
-import {deleteOfStaff} from '../redux/ActionCreators'
+import {deleteOfStaff,fetchStaffs} from '../redux/ActionCreators'
 
 const required = (val)=> val && val.length;
 const maxLength = (len)=>(val)=> !val||val.length<=len;
@@ -76,6 +76,7 @@ function StaffDetail(props){
         
         console.log(id)
         dispatch(deleteOfStaff(id));
+        dispatch(fetchStaffs());
         props.history.push("/staff");
       }
    
@@ -141,7 +142,7 @@ function StaffDetail(props){
                                         model='.name'
                                         id='name'                                                                                                        
                                         placeholder="Từ 3 đến 20 ký tự"  
-                                                                 
+                                        defaultValue={props.staff.name}                         
                                         validators={
                                             {
                                                 required,
@@ -172,10 +173,11 @@ function StaffDetail(props){
                                     Ngày tháng năm sinh:
                                 </Label>
                                 <Col md={8}>                                    
-                                    <Control
+                                <Control
                                         type='date'
                                         model='.doB'
-                                        id='doB'                                      
+                                        id='doB'  
+                                        defaultValue={props.staff.doB}                                      
                                         validators={
                                             {
                                                 required
@@ -204,7 +206,8 @@ function StaffDetail(props){
                                     <Control
                                         type='date'
                                         model='.startDate'
-                                        id='startDate'                                        
+                                        id='startDate'  
+                                        defaultValue={props.staff.startDate}                                      
                                         validators={
                                             {
                                                 required
@@ -232,7 +235,8 @@ function StaffDetail(props){
                                     <Control.select
                                         type='select'                             
                                         model='.departmentId'
-                                        id= 'departmentId'                                                                                                                       
+                                        id= 'departmentId'   
+                                        defaultValue={props.staff.departmentId}                                                                                                                    
                                         validators={
                                             {
                                                 required
@@ -269,7 +273,7 @@ function StaffDetail(props){
                                         model='.salaryScale'
                                         id='salaryScale'                                                                                                        
                                         placeholder="Giá trị từ 1.0 ->4.0"  
-                                                                 
+                                        defaultValue={props.staff.salaryScale}                         
                                         validators={
                                             {
                                                 required,
@@ -308,7 +312,7 @@ function StaffDetail(props){
                                         
                                         model='.annualLeave'
                                         id='annualLeave'
-                                        
+                                        defaultValue={props.staff.annualLeave} 
                                         placeholder='Giá trị từ 0.0-12.0'
                                         validators={
                                             {
@@ -346,7 +350,7 @@ function StaffDetail(props){
                                         type='text'
                                         id='overTime'
                                         model='.overTime'
-                                        
+                                        defaultValue={props.staff.overTime} 
                                         placeholder='Giá trị từ 0.0-30.0'
                                         validators={
                                             {
