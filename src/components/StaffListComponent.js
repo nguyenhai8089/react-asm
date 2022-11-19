@@ -29,22 +29,24 @@ const dotOfNumber= (val)=>val&&(val.split('').filter((x)=>x==='.').length===1)
 
 /* hàm Render ra ảnh và tên nhân viên */
 function RenderStaffList({staff1,isLoading,errMess}){
-    console.log('giá trị của staff1,isLoading,errMess '+staff1,isLoading,errMess)
+    console.log('giá trị của staff1,isLoading,errMess '+staff1,isLoading,errMess)    
     if(isLoading){
         return<Loading />
     } else if(errMess){
         return<h4>{errMess}</h4>
     } else 
         return(
-            <div>
-            <Card key={staff1.id} >
+            <div >
+                <Card key={staff1.id} >
                     <Link to ={`/staff/${staff1.id}`}>
                         <CardImg src={staff1.image} alt={staff1.name}/>
                         <CardBody>
-                            <CardTitle>{staff1.name}</CardTitle>
+                            <CardTitle>{staff1.name}</CardTitle>                                                    
                         </CardBody>
-                    </Link>                        
+                    </Link> 
+                                          
                 </Card>
+                    
             </div>
         );
 
@@ -63,6 +65,8 @@ class StaffList extends Component{
         this.toggleModal=this.toggleModal.bind(this);  
                
     }
+    //hàm xóa nhân viên
+    
     /* hàm tìm kiếm nhân viên  */
     searchStaff(event){
         event.preventDefault();       

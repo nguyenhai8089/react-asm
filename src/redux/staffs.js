@@ -33,6 +33,20 @@ export const Staffs=(state={
                 /* staffs:state.staffs.concat(staff) */
                 staffs:[...state.staffs,staff]
             }
+        case ActionTypes.DELETE_STAFF:
+            return {
+                ...state,
+                staffs:action.payload,
+                isLoading:false,
+                errMess:null
+            }
+            case ActionTypes.UPDATE_STAFF:
+                return {
+                    ...state,
+                    staffs:action.payload,
+                    isLoading:false,
+                    errMess:null
+                }
         default:
             return state;
     }
