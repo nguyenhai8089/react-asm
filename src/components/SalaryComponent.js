@@ -2,7 +2,7 @@
  import React,{useState} from 'react'; 
  import {Card,Breadcrumb,CardBody,CardText, BreadcrumbItem,Button}from 'reactstrap';
  import {Link} from 'react-router-dom';
- 
+ import {Loading} from './LoadingComponent';
 
  /* hàm RenderSalary render ra nội dung từng nhân viên */
  function RenderSalary({staff,salary}){
@@ -76,15 +76,33 @@
 
 
       console.log(stafflist);
-         const salary=stafflist.map((staff)=>{
+        const salary=stafflist.map((staff)=>{
              return(
                  <div className="col-12 col-md-6 col-lg-4 mt-3">
                      <RenderSalary staff={staff} salary={SalaryCalculation(staff.salaryScale,staff.overTime)}/>
                  </div>                
              );
          });
-       
-         return(
+        if (props.staffsLoading) {
+          return (
+            <div className="container">
+                <div className="row">
+                <Loading />
+                </div>
+            </div>
+          );
+        } else if (props.staffsErrMess) {
+          return (
+            <div className="container">
+                <div className="row">
+                <div className="col-12">
+                    <h4>{props.staffsErrMess}</h4>
+                </div>
+                </div>
+            </div>
+          );
+      }else       
+        return(
              <div class="container">                  
                  <div className='col-12'>
                      <Breadcrumb>

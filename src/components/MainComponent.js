@@ -31,7 +31,10 @@ const mapDispatchToProps=(dispatch)=>({
 
 
 /* hàm render ra toàn bộ ứng dụng này */
-class Main extends Component {
+class Main extends Component {  
+  constructor(props) {
+    super(props);
+  }
 
   componentDidMount(){
     this.props.fetchStaffs();
@@ -72,11 +75,29 @@ class Main extends Component {
       <div >
         <Header/>
         <Switch>
-             <Route exact path='/staff' component={()=><StaffList  postAddStaff={this.props.postAddStaff}  department={this.props.departments.departments} staff={this.props.staffs.staffs} staffsLoading={this.props.staffs.isLoading} staffsErrMess={this.props.staffs.errMess}/>}/>
+             <Route exact path='/staff' component={()=><StaffList  
+                postAddStaff={this.props.postAddStaff}  
+                department={this.props.departments.departments} 
+                staff={this.props.staffs.staffs} 
+                staffsLoading={this.props.staffs.isLoading} 
+                staffsErrMess={this.props.staffs.errMess}
+                />}
+              />
              <Route exact path='/staff/:staffId' component={StaffId}/>  
-             <Route exact path='/department' component={()=><Department department={this.props.departments.departments}/>}/>
+             <Route exact path='/department' component={()=><Department 
+                department={this.props.departments.departments}
+                staff={this.props.staffs.staffs} 
+                staffsLoading={this.props.departments.isLoading} 
+                staffsErrMess={this.props.departments.errMess}
+                />}
+              />
              <Route exact path='/department/:departmentId' component={DepartmentId}/>
-             <Route exact path='/salary' component={()=><Salary staff={this.props.salary.salary}/>}/>
+             <Route exact path='/salary' component={()=><Salary 
+                staff={this.props.salary.salary}
+                staffsLoading={this.props.salary.isLoading} 
+                staffsErrMess={this.props.salary.errMess}
+                />}
+              />
              <Redirect to='/staff'/>          
         </Switch>  
         <Footer/> 

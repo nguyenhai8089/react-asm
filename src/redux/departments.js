@@ -9,7 +9,7 @@ export const Departments=(state={
             return {
                 ...state,
                 departments:action.payload,
-                isLoading:true,
+                isLoading:false,
                 errMess:null
             } 
         case ActionTypes.DEPARTMENTS_LOADING:

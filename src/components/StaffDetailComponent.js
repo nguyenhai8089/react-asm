@@ -19,15 +19,11 @@ import dateFormat from 'dateformat';
 import { Link, useParams } from "react-router-dom";
 import {Loading} from './LoadingComponent';
 import { useDispatch } from 'react-redux';
-import {deleteOfStaff,fetchStaffs} from '../redux/ActionCreators'
+import {deleteOfStaff,fetchStaffs,fetchSalary,fetchDepartments} from '../redux/ActionCreators'
 
 /* hàm render chi tiết thồng tin của nhân viên */
-function RenderStaffDetail({staff1,department1,isLoading,errMess}){
-    if(isLoading){
-        return<Loading />
-    } else if(errMess){
-        return<h4>{errMess}</h4>
-    } else 
+function RenderStaffDetail({staff1,department1}){
+    if(staff1 !=null)     
         return(
             <div className='row'>
                 <div className='mt-5 left col-lg-3 col-md-4 col-12'> 
@@ -39,7 +35,15 @@ function RenderStaffDetail({staff1,department1,isLoading,errMess}){
                         <CardTitle>Họ và tên: <b>{staff1.name}</b> </CardTitle>
                         <CardText>Ngày sinh: {dateFormat(staff1.doB,'dd/mm/yyyy')}</CardText>
                         <CardText>Ngày vào công ty: {dateFormat(staff1.startDate,'dd/mm/yyyy')}</CardText>
-                        <CardText>Phòng ban: {department1.name}</CardText>
+                        <CardText>{
+                                department1.map((department)=>
+                                    {if(department.id===staff1.departmentId)
+                                        return (
+                                            <p>Phòng ban: {department.name}</p>
+                                        )
+                                    })                                
+                            }
+                        </CardText>
                         <CardText>Bậc lương: {staff1.salaryScale}</CardText>
                         <CardText>Số ngày nghỉ còn lại: {staff1.annualLeave}</CardText>
                         <CardText>số ngày đã làm thêm: {staff1.overTime}</CardText>
@@ -48,6 +52,11 @@ function RenderStaffDetail({staff1,department1,isLoading,errMess}){
 
             </div>
         );
+    else {
+            return(
+                <div></div>
+            );
+        }
 }
 
 /* hàm render toàn bộ trang chi tiết thồng tin của nhân viên */
@@ -66,6 +75,8 @@ function StaffDetail(props){
         console.log(props.staff.id)
         dispatch(deleteOfStaff(props.staff.id));
         dispatch(fetchStaffs());
+        dispatch(fetchDepartments());
+        dispatch(fetchSalary());
         props.history.push("/staff");
       }
    
@@ -85,13 +96,33 @@ function StaffDetail(props){
         );
     }
     const staff1=props.staff
-    const department1=props.department.filter(
+    const department1=props.department
+      
+    /* const department1=props.department.filter(
         (department)=>department.id===props.staff.departmentId
-    )[0]
+    )[0] */
     
     console.log('giá trị của staff sau filter'+staff1);  
     console.log('giá trị của department sau filter'+department1); 
-    if(department1!=null)   
+    if (props.staffsLoading) {
+        return (
+        <div className="container">
+            <div className="row">
+            <Loading />
+            </div>
+        </div>
+        );
+    } else if (props.staffsErrMess) {
+        return (
+        <div className="container">
+            <div className="row">
+            <div className="col-12">
+                <h4>{props.staffsErrMess}</h4>
+            </div>
+            </div>
+        </div>
+        );
+    }else if(department1!=null)   
         return(
             <div className='container'>
                 <div className='col-12'>

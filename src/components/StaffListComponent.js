@@ -125,6 +125,29 @@ class StaffList extends Component{
                 </div>                
             );
         });
+        
+        if (this.props.staffsLoading) {
+            return (
+            <div className="container">
+                <div className="row">
+                <Loading />
+                </div>
+            </div>
+            );
+        } else if (this.props.staffsErrMess) {
+            return (
+            <div className="container">
+                <div className="row">
+                <div className="col-12">
+                    <h4>{this.props.staffsErrMess}</h4>
+                </div>
+                </div>
+            </div>
+            );
+        }
+
+        // Trả về kết quả hiển thị
+        else
         return(
             <div class="container">  
                 <div className='row'>
