@@ -16,6 +16,7 @@ import {
 import {Link} from 'react-router-dom';
 import {Control,LocalForm,Errors} from 'react-redux-form'
 import {Loading} from './LoadingComponent';
+import {FadeTransform} from 'react-animation-components'
 
 
 const required = (val)=> val && val.length;
@@ -37,16 +38,21 @@ function RenderStaffList({staff1,isLoading,errMess}){
     } else 
         return(
             <div >
-                <Card key={staff1.id} >
-                    <Link to ={`/staff/${staff1.id}`}>
-                        <CardImg src={staff1.image} alt={staff1.name}/>
-                        <CardBody>
-                            <CardTitle>{staff1.name}</CardTitle>                                                    
-                        </CardBody>
-                    </Link> 
-                                          
-                </Card>
-                    
+                <FadeTransform in 
+                        transformProps={{
+                            exitTransform:'scale(0.5) translateX(-50%) '
+                        }}
+                >
+                    <Card key={staff1.id} >
+                        <Link to ={`/staff/${staff1.id}`}>
+                            <CardImg src={staff1.image} alt={staff1.name}/>
+                            <CardBody>
+                                <CardTitle>{staff1.name}</CardTitle>                                                    
+                            </CardBody>
+                        </Link> 
+                                            
+                    </Card>
+                </FadeTransform>
             </div>
         );
 
@@ -181,8 +187,8 @@ class StaffList extends Component{
                     <hr/>                    
                 </div> 
                             
-                <div class="row" >
-                    {staffList1}
+                <div class="row" >                    
+                        {staffList1} 
                 </div> 
                 <hr/>  
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal} >

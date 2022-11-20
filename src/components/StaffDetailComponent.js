@@ -20,6 +20,7 @@ import { Link, useParams } from "react-router-dom";
 import {Loading} from './LoadingComponent';
 import { useDispatch } from 'react-redux';
 import {deleteOfStaff,fetchStaffs,fetchSalary,fetchDepartments} from '../redux/ActionCreators'
+import {FadeTransform} from 'react-animation-components'
 
 /* hàm render chi tiết thồng tin của nhân viên */
 function RenderStaffDetail({staff1,department1}){
@@ -27,8 +28,9 @@ function RenderStaffDetail({staff1,department1}){
         return(
             <div className='row'>
                 <div className='mt-5 left col-lg-3 col-md-4 col-12'> 
-                    <CardImg  src={staff1.image}/>
-                        
+                    <FadeTransform in transformProps={{exitTransform:'scale(0.5) translateX(-50%)'}}>
+                        <CardImg  src={staff1.image}/>
+                    </FadeTransform>   
                 </div>
                 <div className='mt-1 right col-lg-9 col-md-8 col-12'>
                     <CardBody>

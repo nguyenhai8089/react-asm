@@ -3,23 +3,26 @@
  import {Card,Breadcrumb,CardBody,CardText, BreadcrumbItem,Button}from 'reactstrap';
  import {Link} from 'react-router-dom';
  import {Loading} from './LoadingComponent';
+ import {FadeTransform} from 'react-animation-components'
 
  /* hàm RenderSalary render ra nội dung từng nhân viên */
  function RenderSalary({staff,salary}){
  
    return(
     <div>
-      <Card key={staff.id} >                    
-        <CardBody>
-          <CardText>
-              <Link to ={`/staff/${staff.id}`}><b>{staff.name}</b> </Link>
-          </CardText>
-          <CardText>Mã nhân viên: {staff.id}</CardText>
-          <CardText>Hệ số lương: {staff.salaryScale}</CardText>
-          <CardText>Số ngày làm thêm: {staff.overTime}</CardText>
-          <CardText className='row col-12'>Lương: {salary} VND </CardText>
-        </CardBody>                    
-      </Card>
+      <FadeTransform in transformProps={{exitTransform:'scale(0.5) translateX(-50%)'}}>
+        <Card key={staff.id} >                    
+          <CardBody>
+            <CardText>
+                <Link to ={`/staff/${staff.id}`}><b>{staff.name}</b> </Link>
+            </CardText>
+            <CardText>Mã nhân viên: {staff.id}</CardText>
+            <CardText>Hệ số lương: {staff.salaryScale}</CardText>
+            <CardText>Số ngày làm thêm: {staff.overTime}</CardText>
+            <CardText className='row col-12'>Lương: {salary} VND </CardText>
+          </CardBody>                    
+        </Card>
+      </FadeTransform>
     </div>
    );
  }

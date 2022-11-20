@@ -3,20 +3,22 @@ import React from 'react';
 import {BreadcrumbItem,Breadcrumb, Card} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Loading} from './LoadingComponent';
-
+import {FadeTransform} from 'react-animation-components'
 
 /* hàm render ra thông tin từng phòng ban */
 const RenderDepartment=(props)=>{    
     return(
         <div>
-            <Card key={props.department.id} >
-                <Link to ={`/department/${props.department.id}`}>
-                    <Card className='p-3 m-2 bg-secondary text-white'>
-                        <h4>{props.department.name}</h4>
-                        <p>số lượng nhân viên: {props.staffNumber.length}</p>
-                    </Card>                    
-                </Link>
-            </Card>            
+            <FadeTransform in transformProps={{exitTransform:'scale(0.5) translateX(-50%)'}}>
+                <Card key={props.department.id} >
+                    <Link to ={`/department/${props.department.id}`}>
+                        <Card className='p-3 m-2 bg-secondary text-white'>
+                            <h4>{props.department.name}</h4>
+                            <p>số lượng nhân viên: {props.staffNumber.length}</p>
+                        </Card>                    
+                    </Link>
+                </Card> 
+            </FadeTransform>               
         </div>
     );
 }
