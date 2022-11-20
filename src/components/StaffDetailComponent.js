@@ -21,17 +21,6 @@ import {Loading} from './LoadingComponent';
 import { useDispatch } from 'react-redux';
 import {deleteOfStaff,fetchStaffs} from '../redux/ActionCreators'
 
-const required = (val)=> val && val.length;
-const maxLength = (len)=>(val)=> !val||val.length<=len;
-const minLength = (len)=>(val)=> val&&val.length>=len; 
-const isNumber = (val)=>!Number.isNaN(Number(val));
-const RangeSalaryScale =(val)=> 1<=val&&val<=4; 
-const RangeOverTime =(val)=> 0<=val&&val<=30; 
-const RangeAnnualLeave =(val)=> 0<=val&&val<=12; 
-const dotOfNumber= (val)=>val&&(val.split('').filter((x)=>x==='.').length===1)
-
-
-
 /* hàm render chi tiết thồng tin của nhân viên */
 function RenderStaffDetail({staff1,department1,isLoading,errMess}){
     if(isLoading){
@@ -64,7 +53,7 @@ function RenderStaffDetail({staff1,department1,isLoading,errMess}){
 /* hàm render toàn bộ trang chi tiết thồng tin của nhân viên */
 function StaffDetail(props){    
     const dispatch = useDispatch();
-    const id = props.staff.id;
+  
     const [isModalOpen,setModal] = useState(false);
     function toggleModal(){
         setModal({
@@ -74,8 +63,8 @@ function StaffDetail(props){
 
     function handleDeleteStaff() {
         
-        console.log(id)
-        dispatch(deleteOfStaff(id));
+        console.log(props.staff.id)
+        dispatch(deleteOfStaff(props.staff.id));
         dispatch(fetchStaffs());
         props.history.push("/staff");
       }
@@ -143,28 +132,9 @@ function StaffDetail(props){
                                         id='name'                                                                                                        
                                         placeholder="Từ 3 đến 20 ký tự"  
                                         defaultValue={props.staff.name}                         
-                                        validators={
-                                            {
-                                                required,
-                                                minLength: minLength(3),
-                                                maxLength: maxLength(20)
-                                            }
-                                        }
+                                        
                                     />
-                                    <Errors
-                                        className='text-danger'
-                                        model='.name'
-                                        show='touched'                                        
-                                        messages=
-                                        {
-                                            {
-                                                required:'Họ và tên không được bỏ trống, ',
-                                                minLength:'Họ và tên phải có độ dài từ 3 ký tự ',
-                                                maxLength:'Họ và tên phải có độ dài nhỏ hơn hoặc bằng 20 ký tự'
-                                                
-                                            }
-                                        }
-                                    />
+                                    
                                 </Col>
                             </Row>
                             {/* Ngày tháng năm sinh: */}
@@ -178,23 +148,9 @@ function StaffDetail(props){
                                         model='.doB'
                                         id='doB'  
                                         defaultValue={props.staff.doB}                                      
-                                        validators={
-                                            {
-                                                required
-                                            }
-                                        }
-                                    />
-                                    <Errors
-                                        className='text-danger'
-                                        model='.doB'
-                                        show='touched'
-                                        messages={
-                                            {
-                                                required:'Ngày tháng năm sinh không được bỏ trống',                                                
-                                            }
-                                        }
                                         
                                     />
+                                    
                                 </Col>
                             </Row>
                             {/* Ngày bắt đầu: */}
@@ -208,22 +164,9 @@ function StaffDetail(props){
                                         model='.startDate'
                                         id='startDate'  
                                         defaultValue={props.staff.startDate}                                      
-                                        validators={
-                                            {
-                                                required
-                                            }
-                                        }
+                                        
                                     />
-                                    <Errors
-                                        className='text-danger'
-                                        model='.startDate'
-                                        show='touched'
-                                        messages={
-                                            {
-                                                required:'Ngày vào công ty không được bỏ trống'
-                                            }
-                                        }                                        
-                                    />
+                                    
                                 </Col>
                             </Row>
                             {/* Phòng ban: */}
@@ -237,11 +180,7 @@ function StaffDetail(props){
                                         model='.departmentId'
                                         id= 'departmentId'   
                                         defaultValue={props.staff.departmentId}                                                                                                                    
-                                        validators={
-                                            {
-                                                required
-                                            }
-                                        }
+                                        
                                     >                          
                                     <option value="">Phòng ban</option>
                                     <option value="Dept01">Sale</option>
@@ -250,16 +189,7 @@ function StaffDetail(props){
                                     <option value="Dept04">IT</option>
                                     <option value="Dept05">Finance</option>
                                     </Control.select>
-                                    <Errors
-                                        className='text-danger'
-                                        model='.departmentId'
-                                        show='touched'
-                                        messages={
-                                            {
-                                                required:'Bạn chưa chọn phòng ban, phòng ban không được bỏ trống'
-                                            }
-                                        }                                        
-                                    />
+                                    
                                 </Col>
                             </Row>
                             {/* Hệ số lương: */}
@@ -269,36 +199,14 @@ function StaffDetail(props){
                                 </Label>
                                 <Col md={8}>                                    
                                     <Control
-                                        type='text'
+                                        type='number'
                                         model='.salaryScale'
                                         id='salaryScale'                                                                                                        
                                         placeholder="Giá trị từ 1.0 ->4.0"  
                                         defaultValue={props.staff.salaryScale}                         
-                                        validators={
-                                            {
-                                                required,
-                                                isNumber,
-                                                RangeSalaryScale,
-                                                dotOfNumber,
-                                                maxLength:maxLength(3)
-                                            }
-                                        }
+                                        
                                     />
-                                    <Errors
-                                        className='text-danger'
-                                        model='.salaryScale'
-                                        show='touched'                                        
-                                        messages=
-                                        {
-                                            {
-                                                required:'Hệ số lương không được bỏ trống, ',
-                                                isNumber:'hệ số lương phải là kiểu số, ',
-                                                RangeSalaryScale:"hệ số lương nhận giá trị từ 1.0-->4.0, ",
-                                                dotOfNumber: "hệ số lương phải là số thập phân có 1 chữ số sau dấu chấm (ví dụ 2.5) ",
-                                                maxLength:" hệ số lương có tối đa 3 ký tự"
-                                            }
-                                        }
-                                    />
+                                    
                                 </Col>
                             </Row>
                             {/* Số ngày nghỉ còn lại: */}
@@ -308,36 +216,15 @@ function StaffDetail(props){
                                 </Label>
                                 <Col md={8}>                                    
                                     <Control 
-                                        type='text'
+                                        type='number'
                                         
                                         model='.annualLeave'
                                         id='annualLeave'
                                         defaultValue={props.staff.annualLeave} 
                                         placeholder='Giá trị từ 0.0-12.0'
-                                        validators={
-                                            {
-                                                required,
-                                                isNumber,
-                                                RangeAnnualLeave,
-                                                dotOfNumber,
-                                                maxLength:maxLength(4)
-                                            }
-                                        }
+                                        
                                     />
-                                    <Errors
-                                        className='text-danger'
-                                        model='.annualLeave'
-                                        show='touched'
-                                        messages={
-                                            {
-                                                required:'Số ngày nghỉ còn lại không được bỏ trống, ',
-                                                isNumber:'số ngày nghỉ còn lại phải là kiểu số, ',
-                                                RangeAnnualLeave:"Số ngày nghỉ còn lại nhận giá trị từ 0.0-->12.0, ",
-                                                dotOfNumber: "số ngày nghỉ còn lại phải là số thập phân có 1 chữ số sau dấu chấm (ví dụ 8.5 ) ",
-                                                maxLength:"số ngày nghỉ còn lại có tối đa 4 ký tự"
-                                            }
-                                        }
-                                    />
+                                    
                                 </Col>
                             </Row>
                             {/* Số ngày tăng ca: */}
@@ -347,35 +234,14 @@ function StaffDetail(props){
                                 </Label>
                                 <Col md={8}>                                    
                                     <Control  
-                                        type='text'
+                                        type='number'
                                         id='overTime'
                                         model='.overTime'
                                         defaultValue={props.staff.overTime} 
                                         placeholder='Giá trị từ 0.0-30.0'
-                                        validators={
-                                            {
-                                                required,
-                                                isNumber,
-                                                RangeOverTime,
-                                                dotOfNumber,
-                                                maxLength:maxLength(4)
-                                            }
-                                        }
+                                        
                                     />
-                                    <Errors
-                                        className='text-danger'
-                                        model='.overTime'
-                                        show='touched'
-                                        messages={
-                                            {
-                                                required:'Số ngày tăng ca không được bỏ trống, ',
-                                                isNumber:'số ngày tăng ca phải là kiểu số, ',
-                                                RangeOverTime:"số ngày tăng ca nhận giá trị từ 0.0-->30.0, ",
-                                                dotOfNumber: "số ngày tăng ca phải là số thập phân có 1 chữ số sau dấu chấm (ví dụ 10.0) ",
-                                                maxLength:"số ngày tăng ca có tối đa 4 ký tự"
-                                            }
-                                        }
-                                    />
+                                    
                                 </Col>
                             </Row>
                                                         
