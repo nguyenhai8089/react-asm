@@ -8,7 +8,7 @@ import Footer from './FooterComponent';
 import StaffDetail from './StaffDetailComponent';
 import {Route,Switch,Redirect,withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { fetchStaffs,fetchDepartments,fetchSalary,postAddStaff,deleteOfStaff,patchAddStaff } from '../redux/ActionCreators';
+import { fetchStaffs,fetchDepartments,fetchSalary} from '../redux/ActionCreators';
 import { TransitionGroup,CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = (state)=>{
@@ -22,14 +22,8 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps=(dispatch)=>({  
   fetchStaffs:()=>dispatch(fetchStaffs()),  
   fetchDepartments:()=>dispatch( fetchDepartments()),
-  fetchSalary:()=>dispatch( fetchSalary()),
-  postAddStaff:(id,name,doB,salaryScale,startDate,departmentId,annualLeave,overTime,image,salary)=>dispatch(
-      postAddStaff(id,name,doB,salaryScale,startDate,departmentId,annualLeave,overTime,image,salary
-    )),
-  deleteOfStaff:(id)=>dispatch(deleteOfStaff(id)),
-  patchAddStaff:(id,name,doB,salaryScale,startDate,departmentId,annualLeave,overTime,image,salary)=>dispatch(
-      patchAddStaff(id,name,doB,salaryScale,startDate,departmentId,annualLeave,overTime,image,salary
-    ))
+  fetchSalary:()=>dispatch( fetchSalary()), 
+  
 });
 
 
@@ -45,7 +39,7 @@ class Main extends Component {
   }  
   
   render(){
-    const StaffId = ({ match,history }) => {
+    const StaffId = ({ match }) => {
       
       return (
         <StaffDetail
@@ -54,11 +48,8 @@ class Main extends Component {
           )[0]}
           department={this.props.departments.departments}
           staffsLoading={this.props.staffs.isLoading}
-          staffsErrMess={this.props.staffs.errMess}
-          postAddStaff={this.props.postAddStaff}
-          patchAddStaff={this.props.patchAddStaff}
-          deleteOfStaff={this.props.deleteOfStaff}
-          history={history}
+          staffsErrMess={this.props.staffs.errMess}          
+          
         />
       );
     };
@@ -79,8 +70,7 @@ class Main extends Component {
           <TransitionGroup>
             <CSSTransition key={this.props.location.key} className='page' timeout={300}>        
               <Switch>
-                  <Route exact path='/staff' component={()=><StaffList  
-                      postAddStaff={this.props.postAddStaff}  
+                  <Route exact path='/staff' component={()=><StaffList                        
                       department={this.props.departments.departments} 
                       staff={this.props.staffs.staffs} 
                       staffsLoading={this.props.staffs.isLoading} 

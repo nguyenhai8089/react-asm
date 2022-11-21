@@ -99,18 +99,7 @@ class StaffList extends Component{
     /* hàm sự kiện handleSubmit khi người dùng thêm nhân viên */
     handleSubmit(value){
         
-        this.props.postAddStaff(
-            this.props.staff.length,
-            value.name,
-            value.doB,
-            value.salaryScale,
-            value.startDate,
-            value.departmentId,
-            value.annualLeave,
-            value.overTime,
-            "/assets/images/alberto.png",
-            value.salaryScale*10*300000 + value.overTime*200000,
-        );
+        
     }
 
     /* hàm đóng mở form thêm nhân viên */
